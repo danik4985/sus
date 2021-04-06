@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"skipLibCheck": true,
+		"module": "CommonJS",
+		"target": "ES6",
+		"outDir": "out/",
+		"removeComments": true
+	},
+	"include": ["src/*.ts"]
+}
