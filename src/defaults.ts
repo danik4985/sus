@@ -74,5 +74,6 @@ export const DefaultIdentifierNames = [
 	'Object',
 	'Array',
 	'Number',
-	'JSON'
+	'JSON',
+	'Math'
 ]

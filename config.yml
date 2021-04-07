@@ -1,0 +1,5 @@
+ignore:
+  - mc
+  - registerScript
+
+removeEmptyLines: true

@@ -1,16 +1,60 @@
 import * as fs from 'fs'
 import { Token } from 'js-tokens'
 import * as randomstring from 'randomstring'
+import * as parser from 'simple-args-parser'
+import * as YAML from 'yaml'
 
 import { DefaultIdentifierNames } from './defaults'
 import { encase } from './encase'
 import { rand } from './rand'
+import { startsWithCapital } from './startsWithCapital'
+import { Config } from './types'
 
 const jsTokens = require('js-tokens')
 
+// Parse arguments
+const _args: any = parser.parse(process.argv, {
+	long: ['input:', 'output:', 'config:', 'verbose'],
+	short: ['i:', 'o:', 'c:', 'v'],
+	errOnDisallowed: true
+}, (err: string) => {
+	console.error(err)
+})
+
+const args = {
+	input: _args.i || _args.input,
+	output: _args.o || _args.output,
+	config: _args.c || _args.config,
+	verbose: _args.v || _args.verbose || false
+}
+
+if (!args.input
+ || !fs.existsSync(args.input)) {
+	console.error('Error: Input file not found (8)')
+	process.exit(8)
+}
+
+if (!args.output
+	|| !fs.existsSync(args.output)) {
+	 console.error('Error: Output file not found (9)')
+	 process.exit(9)
+}
+
+// Load config
+var _config: Config
+if (args.config
+ && fs.existsSync(args.config)) _config = YAML.parse(String(fs.readFileSync(args.config)))
+else _config = { ignore: [], removeEmptyLines: true }
+const config = _config
+
+// inform
+function inform(...data: any[]) {
+	if (args.verbose) console.log(data)
+}
+
 // Declare constants
-const _file = process.argv[2]
-const __file = process.argv[3]
+const _file = args.input
+const __file = args.output
 const raw = String(fs.readFileSync(_file))
 const tokens: Token[] = Array.from(jsTokens(raw))
 
@@ -23,13 +67,15 @@ var _tokens = []
 tokens.forEach((i, n) => {
 	var _this: Token = i
 
-	console.log(n, i)
+	inform(n, i)
 
 	// Renaming variables
 	if (i.type === 'IdentifierName'
 	 && !DefaultIdentifierNames.includes(i.value)
 	 && tokens[(n-1)].value != '.'
-	 && tokens[(n+1)].value != ':') {
+	 && tokens[(n+1)].value != ':'
+	 && !startsWithCapital(i.value)
+	 && !config.ignore.includes(i.value)) {
 
 		if (map[i.value]) { // This value exists
 			_this.value = map[i.value]
@@ -49,6 +95,12 @@ tokens.forEach((i, n) => {
 	&& tokens[(n-1)].value === '.') {
 		_tokens[(n-1)].value = '['
 		_this.value = `/* gay popbob sex dupe */${JSON.stringify(i.value)}/* gay popbob sex dupe */]`
+	}
+
+	// Putting things before : to []
+	if (i.type === 'IdentifierName'
+	 && tokens[(n+1)].value === ':') {
+		_this.value = `[/*amogus*/${JSON.stringify(i.value)}/*amogus*/]`
 	}
 
 	// Re-doing comments
@@ -94,11 +146,22 @@ tokens.forEach((i, n) => {
 	}
 
 	_tokens.push(_this)
-	console.log(n, _this)
+	inform(n, _this)
 })
 
 var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ }\n'
 
 _tokens.forEach((i) => { final += i.value })
+
+if (config.removeEmptyLines) {
+	var _final: string
+	final.split('\n').forEach((i) => {
+		if (i != '') {
+			_final += i + '\n'
+		}
+	})
+
+	final = _final
+}
 
 fs.writeFileSync(__file, final)
