@@ -123,7 +123,7 @@ tokens.forEach((i, n) => {
 var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ }\n';
 _tokens.forEach((i) => { final += i.value; });
 if (config.removeEmptyLines) {
-    var _final;
+    var _final = '';
     final.split('\n').forEach((i) => {
         if (i != '') {
             _final += i + '\n';

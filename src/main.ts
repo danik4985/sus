@@ -154,7 +154,7 @@ var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + 
 _tokens.forEach((i) => { final += i.value })
 
 if (config.removeEmptyLines) {
-	var _final: string
+	var _final: string = ''
 	final.split('\n').forEach((i) => {
 		if (i != '') {
 			_final += i + '\n'
