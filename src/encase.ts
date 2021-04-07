@@ -1,0 +1,1 @@
+export function encase(str: string, char: string) { return `${char}${str}${char}` }

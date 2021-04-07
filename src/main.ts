@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import { Token } from 'js-tokens'
 import * as randomstring from 'randomstring'
 import { DefaultIdentifierNames } from './defaults'
+import { encase } from './encase'
 const jsTokens = require('js-tokens')
 
 // Declare constants
@@ -47,14 +48,34 @@ tokens.forEach((i, n) => {
 		_this.value = `/* gay popbob sex dupe */${JSON.stringify(i.value)}/* gay popbob sex dupe */]`
 	}
 
-	else if (i.type === 'MultiLineComment'
-				|| i.type === 'SingleLineComment') _this.value = '/* gay popbob sex dupe */'
+	// Re-doing comments
+	if (i.type === 'MultiLineComment'
+	 || i.type === 'SingleLineComment') _this.value = '/* gay popbob sex dupe */'
+
+	if (i.type === 'StringLiteral') {
+		const stringStart = i.value.split('')[0]
+		const stringValue = i.value.slice(1, -1)
+		var _strLenA: number
+		var _strLenB: number
+
+		if ((stringValue.length % 2) === 0) {
+			_strLenA = stringValue.length / 2
+			_strLenB = stringValue.length / 2
+		} else {
+			_strLenA = (stringValue.length - 1) / 2
+			_strLenB = (stringValue.length + 1) / 2
+		}
+
+		const strSplit = [ encase(stringValue.slice(0, _strLenA), stringStart), encase(stringValue.slice(_strLenB), stringStart) ]
+
+		_this.value = `řඞŘ(${strSplit[1]}, ${strSplit[0]})`
+	}
 
 	_tokens.push(_this)
 	console.log(n, _this)
 })
 
-var final = ''
+var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ }\n'
 
 _tokens.forEach((i) => { final += i.value })
 
