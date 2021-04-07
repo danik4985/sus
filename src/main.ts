@@ -66,7 +66,7 @@ tokens.forEach((i, n) => {
 			_strLenB = (stringValue.length + 1) / 2
 		}
 
-		const strSplit = [ encase(stringValue.slice(0, _strLenA), stringStart), encase(stringValue.slice(_strLenB), stringStart) ]
+		const strSplit = [ encase(stringValue.slice(0, _strLenA), stringStart), encase(stringValue.slice(_strLenB - 1), stringStart) ]
 
 		_this.value = `řඞŘ(${strSplit[1]}, ${strSplit[0]})`
 	}
