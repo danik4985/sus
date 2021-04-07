@@ -1,8 +1,11 @@
 import * as fs from 'fs'
 import { Token } from 'js-tokens'
 import * as randomstring from 'randomstring'
+
 import { DefaultIdentifierNames } from './defaults'
 import { encase } from './encase'
+import { rand } from './rand'
+
 const jsTokens = require('js-tokens')
 
 // Declare constants
@@ -52,6 +55,7 @@ tokens.forEach((i, n) => {
 	if (i.type === 'MultiLineComment'
 	 || i.type === 'SingleLineComment') _this.value = '/* gay popbob sex dupe */'
 
+	// Strings
 	if (i.type === 'StringLiteral') {
 		const stringStart = i.value.split('')[0]
 		const stringValue = i.value.slice(1, -1)
@@ -69,6 +73,24 @@ tokens.forEach((i, n) => {
 		const strSplit = [ encase(stringValue.slice(0, _strLenA), stringStart), encase(stringValue.slice(_strLenB), stringStart) ]
 
 		_this.value = `řඞŘ(${strSplit[1]},/*ඞ sus ඞ*/ ${strSplit[0]})`
+	}
+
+	// Number
+	if (i.type === 'NumericLiteral') {
+		const _r = [ rand(0, 10), rand(68, 421), rand(2, 16), rand(8, 24) ]
+		const __num = Number(i.value)
+
+		const num = __num - _r[1]
+		const _num = num / _r[2]
+		const rnum = _r[1] / _r[3]
+
+		const template = [ `(${rnum} * ${_r[3]})`, `(${_r[2]} * ${_num})` ]
+
+		if ((_r[0] % 2) === 0) {
+			_this.value = `řඞŘ(${template[1]},/*ඞ sus ඞ*/ ${template[0]})`
+		} else {
+			_this.value = `řඞŘ(${template[0]},/*ඞ sus ඞ*/ ${template[1]})`
+		}
 	}
 
 	_tokens.push(_this)
