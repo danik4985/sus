@@ -26,10 +26,7 @@ Currently, the obfuscator doesnt support *flags*, so you have to do `command <in
 
 ### Contributing
 
-Someone help me fix the fact that it doesnt work with
-
-* JSON
-* Working with modules is glithchy
+I don't know how contributing works
 
 #### Im not sure how contributing works, so here is the default git *thing*
 ```

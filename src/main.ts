@@ -24,7 +24,8 @@ tokens.forEach((i, n) => {
 	// Renaming variables
 	if (i.type === 'IdentifierName'
 	 && !DefaultIdentifierNames.includes(i.value)
-	 && tokens[(n-1)].value != '.') {
+	 && tokens[(n-1)].value != '.'
+	 && tokens[(n+1)].value != ':') {
 
 		if (map[i.value]) { // This value exists
 			_this.value = map[i.value]

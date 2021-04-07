@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create folder if needed
-[[ ! -f out/ ]] && mkdir out
+[[ ! -d out/ ]] && mkdir out
 
 # Compile
 tsc
