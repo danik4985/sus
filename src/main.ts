@@ -63,12 +63,12 @@ tokens.forEach((i, n) => {
 			_strLenB = stringValue.length / 2
 		} else {
 			_strLenA = (stringValue.length - 1) / 2
-			_strLenB = (stringValue.length + 1) / 2
+			_strLenB = ((stringValue.length + 1) / 2) - 1
 		}
 
-		const strSplit = [ encase(stringValue.slice(0, _strLenA), stringStart), encase(stringValue.slice(_strLenB - 1), stringStart) ]
+		const strSplit = [ encase(stringValue.slice(0, _strLenA), stringStart), encase(stringValue.slice(_strLenB), stringStart) ]
 
-		_this.value = `řඞŘ(${strSplit[1]}, ${strSplit[0]})`
+		_this.value = `řඞŘ(${strSplit[1]},/*ඞ sus ඞ*/ ${strSplit[0]})`
 	}
 
 	_tokens.push(_this)
