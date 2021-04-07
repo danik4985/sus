@@ -18,11 +18,28 @@ Recomended:
 
 ### Installing
 
-I might put it on npm later, until then, you should figure it out. Dont forget to run `npm install`. If you have bash, using the `start.sh` script is recomended. Keep in mind the compiled js code is not included, you have to use tsc (*start.sh* does that for you tho).
+[sus can be installed from NPM](https://www.npmjs.com/package/sus-obfuscator)
+
+Linux & MacOS:
+```bash
+sudo npm install -g sus-obfuscator
+```
+Sh*tdows:
+```cmd
+npm install -g sus-obfuscator
+```
 
 ### Usage
 
-Currently, the obfuscator doesnt support *flags*, so you have to do `command <input file> <output file>`
+There is no `--help` flag, I'll make it later
+The CLI usage is `sus <args>`
+Arguments:
+```
+-i --input [file]        Input file
+-o --output [file]       Output file
+-v --verbose             Set, if you want verbose output
+-c --config [file]       Specify a YAML config file (more about that later)
+```
 
 ### Contributing
 
