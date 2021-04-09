@@ -1,10 +1,13 @@
+#!/usr/bin/env node
+
 import * as fs from 'fs'
 import { Token } from 'js-tokens'
 import * as randomstring from 'randomstring'
 import * as parser from 'simple-args-parser'
 import * as YAML from 'yaml'
+import * as chalk from 'chalk'
 
-import { DefaultIdentifierNames } from './defaults'
+import { Amogus, DefaultIdentifierNames } from './defaults'
 import { encase } from './encase'
 import { rand } from './rand'
 import { startsWithCapital } from './startsWithCapital'
@@ -44,13 +47,26 @@ if (!args.output
 var _config: Config
 if (args.config
  && fs.existsSync(args.config)) _config = YAML.parse(String(fs.readFileSync(args.config)))
-else _config = { ignore: [], removeEmptyLines: true }
+else _config = {
+	ignore: [], removeEmptyLines: true,
+	shrink: true, amogus: [ true, false ],
+	lineStart: false
+}
 const config = _config
 
-// inform
-function inform(...data: any[]) {
-	if (args.verbose) console.log(data)
+// Inform function
+function inform(...data: any) {
+	if (args.verbose) console.log(...data)
 }
+
+// Terminal announcement
+console.log(chalk.green('Starting obfuscation of'), chalk.greenBright.bold(args.input))
+console.log('Verbose:', chalk.blue(args.verbose))
+console.log(chalk.dim.italic('Plase be patient...'))
+
+console.time('Time')
+
+inform('Config:', config)
 
 // Declare constants
 const _file = args.input
@@ -145,18 +161,29 @@ tokens.forEach((i, n) => {
 		}
 	}
 
+	if (i.type === 'LineTerminatorSequence'
+	 && i.value === '\n'
+	 && config.shrink) {
+		inform('ENDED LINE - ADDED ;')
+		_this.value = ';'
+	}
+
 	_tokens.push(_this)
 	inform(n, _this)
 })
 
-var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ }\n'
-
+// Build the string
+var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ };'
 _tokens.forEach((i) => { final += i.value })
 
+// Remove empty lines
 if (config.removeEmptyLines) {
 	var _final: string = ''
 	final.split('\n').forEach((i) => {
-		if (i != '') {
+		if (i != '' && i != ';') {
+			if (config.lineStart === true) _final += '/*ඞsusඞ*/'
+			else if (config.lineStart) _final += `/*${config.lineStart}*/`
+
 			_final += i + '\n'
 		}
 	})
@@ -164,4 +191,19 @@ if (config.removeEmptyLines) {
 	final = _final
 }
 
+// Add amogus
+if (config.amogus) {
+	if (config.amogus[0]) final = Amogus + final
+	if (config.amogus[1]) final = final + Amogus
+}
+
 fs.writeFileSync(__file, final)
+
+// Terminal announcement
+if (!args.verbose) process.stdout.write('\x1b[A\x1b[A\x1b[A')
+
+console.log(chalk.green('Done obfuscating'), chalk.greenBright.bold(_file), chalk.green('| Written to'), chalk.greenBright.bold(__file))
+console.log('Verbose:', chalk.blue(args.verbose))
+console.log(chalk.dim.italic('Obfuscation was sucesfull'))
+
+console.timeEnd('Time')

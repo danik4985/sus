@@ -41,6 +41,25 @@ Arguments:
 -c --config [file]       Specify a YAML config file (more about that later)
 ```
 
+## YAML Config
+An example config file:
+```yml
+ignore:
+  - mc
+  - registerScript
+
+removeEmptyLines: true
+shrink: false
+amogus: [ true, false ],
+lineStart: true
+```
+
+**`ignore`**:`string[]` - Keys that dont get renamed
+**`removeEmptyLines`**:`boolean` - Remove blank lines from result *(doesn't work when `shrink` is true)*
+**`shrink`**:`boolean` - Make the code one line
+**`amogus`**:`boolean[2]` - Add amogus ascii art on *[0]* start and *[1]* end
+**`lineStart`**:`string | boolean` - Adds your *string* or *ඞsusඞ* as a block comment to the start of each line
+
 ### Contributing
 
 I don't know how contributing works
