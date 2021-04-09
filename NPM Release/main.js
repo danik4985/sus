@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const randomstring = require("randomstring");
 const parser = require("simple-args-parser");
 const YAML = require("yaml");
+const chalk = require("chalk");
 const defaults_1 = require("./defaults");
 const encase_1 = require("./encase");
 const rand_1 = require("./rand");
@@ -39,12 +39,21 @@ if (args.config
     && fs.existsSync(args.config))
     _config = YAML.parse(String(fs.readFileSync(args.config)));
 else
-    _config = { ignore: [], removeEmptyLines: true };
+    _config = {
+        ignore: [], removeEmptyLines: true,
+        shrink: true, amogus: [true, false],
+        lineStart: false
+    };
 const config = _config;
 function inform(...data) {
     if (args.verbose)
-        console.log(data);
+        console.log(...data);
 }
+console.log(chalk.green('Starting obfuscation of'), chalk.greenBright.bold(args.input));
+console.log('Verbose:', chalk.blue(args.verbose));
+console.log(chalk.dim.italic('Plase be patient...'));
+console.time('Time');
+inform('Config:', config);
 const _file = args.input;
 const __file = args.output;
 const raw = String(fs.readFileSync(_file));
@@ -117,18 +126,40 @@ tokens.forEach((i, n) => {
             _this.value = `řඞŘ(${template[0]},/*ඞ sus ඞ*/ ${template[1]})`;
         }
     }
+    if (i.type === 'LineTerminatorSequence'
+        && i.value === '\n'
+        && config.shrink) {
+        inform('ENDED LINE - ADDED ;');
+        _this.value = ';';
+    }
     _tokens.push(_this);
     inform(n, _this);
 });
-var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ }\n';
+var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ };';
 _tokens.forEach((i) => { final += i.value; });
 if (config.removeEmptyLines) {
     var _final = '';
     final.split('\n').forEach((i) => {
-        if (i != '') {
+        if (i != '' && i != ';') {
+            if (config.lineStart === true)
+                _final += '/*ඞsusඞ*/';
+            else if (config.lineStart)
+                _final += `/*${config.lineStart}*/`;
             _final += i + '\n';
         }
     });
     final = _final;
 }
+if (config.amogus) {
+    if (config.amogus[0])
+        final = defaults_1.Amogus + final;
+    if (config.amogus[1])
+        final = final + defaults_1.Amogus;
+}
 fs.writeFileSync(__file, final);
+if (!args.verbose)
+    process.stdout.write('\x1b[A\x1b[A\x1b[A');
+console.log(chalk.green('Done obfuscating'), chalk.greenBright.bold(_file), chalk.green('| Written to'), chalk.greenBright.bold(__file));
+console.log('Verbose:', chalk.blue(args.verbose));
+console.log(chalk.dim.italic('Obfuscation was sucesfull'));
+console.timeEnd('Time');
