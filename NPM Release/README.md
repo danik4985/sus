@@ -39,9 +39,13 @@ lineStart: true
 ```
 
 **`ignore`**:`string[]` - Keys that dont get renamed
+
 **`removeEmptyLines`**:`boolean` - Remove blank lines from result *(doesn't work when `shrink` is true)*
+
 **`shrink`**:`boolean` - Make the code one line
+
 **`amogus`**:`boolean[2]` - Add amogus ascii art on *[0]* start and *[1]* end
+
 **`lineStart`**:`string | boolean` - Adds your *string* or *ඞsusඞ* as a block comment to the start of each line
 
 ## Github
