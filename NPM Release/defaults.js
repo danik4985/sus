@@ -107,4 +107,4 @@ exports.HelpText = `
 -v --version             Prints version
 -h --help                Shows help
 `;
-exports.Version = '1.1.2';
+exports.Version = '1.1.4';
