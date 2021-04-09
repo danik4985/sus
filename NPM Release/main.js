@@ -10,14 +10,19 @@ const defaults_1 = require("./defaults");
 const encase_1 = require("./encase");
 const rand_1 = require("./rand");
 const startsWithCapital_1 = require("./startsWithCapital");
+const misc_1 = require("./misc");
 const jsTokens = require('js-tokens');
 const _args = parser.parse(process.argv, {
-    long: ['input:', 'output:', 'config:', 'verbose'],
-    short: ['i:', 'o:', 'c:', 'v'],
+    long: ['input:', 'output:', 'config:', 'verbose', 'help', 'version'],
+    short: ['i:', 'o:', 'c:', 'v', 'h', 'v'],
     errOnDisallowed: true
 }, (err) => {
     console.error(err);
 });
+if (_args.h || _args.help)
+    misc_1.printHelp();
+if (_args.v || _args.version)
+    misc_1.printVersion();
 const args = {
     input: _args.i || _args.input,
     output: _args.o || _args.output,

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Amogus = exports.DefaultIdentifierNames = void 0;
+exports.Version = exports.HelpText = exports.Amogus = exports.DefaultIdentifierNames = void 0;
 exports.DefaultIdentifierNames = [
     'await',
     'break',
@@ -99,3 +99,12 @@ exports.Amogus = `/*⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀
 ⠈⠙⢷⣶⣦⣤⣤⣤⣴⣶⣾⠿⠛⠁⢀⣶⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀
 ⢷⣶⣤⣀⠉⠉⠉⠉⠉⠄⠀⠀⠀⠀⠈⣿⣆⡀⠀⠀⠀⠀⠀⠀⢀⣠⣴⡾⠃⠀
 ⠀⠈⠉⠛⠿⣶⣦⣄⣀⠀⠀⠀⠀⠀⠀⠈⠛⠻⢿⣿⣾⣿⡿⠿⠟⠋⠁⠀⠀⠀*/`.split('\n').join('*/\n/*');
+exports.HelpText = `
+-i --input [file]        Input file
+-o --output [file]       Output file
+-v --verbose             Set, if you want verbose output
+-c --config [file]       Specify a YAML config file (more about that later)
+-v --version             Prints version
+-h --help                Shows help
+`;
+exports.Version = '1.1.2';
