@@ -12,17 +12,21 @@ import { encase } from './encase'
 import { rand } from './rand'
 import { startsWithCapital } from './startsWithCapital'
 import { Config } from './types'
+import { printHelp, printVersion } from './misc'
 
 const jsTokens = require('js-tokens')
 
 // Parse arguments
 const _args: any = parser.parse(process.argv, {
-	long: ['input:', 'output:', 'config:', 'verbose'],
-	short: ['i:', 'o:', 'c:', 'v'],
+	long: ['input:', 'output:', 'config:', 'verbose', 'help', 'version'],
+	short: ['i:', 'o:', 'c:', 'v', 'h', 'v'],
 	errOnDisallowed: true
 }, (err: string) => {
 	console.error(err)
 })
+
+/* HELP => */ if (_args.h || _args.help) printHelp()
+/* VERSION => */ if (_args.v || _args.version) printVersion()
 
 const args = {
 	input: _args.i || _args.input,

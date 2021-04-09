@@ -23,6 +23,8 @@ Arguments:
 -o --output [file]       Output file
 -v --verbose             Set, if you want verbose output
 -c --config [file]       Specify a YAML config file (more about that later)
+-v --version             Prints version
+-h --help                Shows help
 ```
 
 ## YAML Config
