@@ -5,4 +5,5 @@ export interface Config {
 	amogus?: [ boolean, boolean ]
 	lineStart?: boolean | string
 	redo?: string[]
+	epicEndArt?: boolean
 }

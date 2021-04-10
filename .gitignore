@@ -2,6 +2,7 @@ node_modules/
 test/
 out/
 test-obfuscator/
+NPM Release/
 
 runNc.sh
 debug.txt

@@ -7,7 +7,7 @@ import * as parser from 'simple-args-parser'
 import * as YAML from 'yaml'
 import * as chalk from 'chalk'
 
-import { Amogus, DefaultIdentifierNames, NotAddSemicolon, _Redo } from './defaults'
+import { Amogus, DefaultIdentifierNames, EpicArt, NotAddSemicolon, _Redo } from './defaults'
 import { encase } from './encase'
 import { rand } from './rand'
 import { startsWithCapital } from './startsWithCapital'
@@ -56,12 +56,12 @@ if (args.config
 else _config = {
 	ignore: [], removeEmptyLines: true,
 	shrink: true, amogus: [ true, false ],
-	lineStart: false
+	lineStart: false, epicEndArt: true
 }
 const config = _config
 
 // Inform function
-function inform(...data: any) { if (args.verbose) console.log(...data) }
+function inform(...data: any) { if (args.verbose) console.log(chalk.blue('[i]'), ...data) }
 
 // Terminal announcement
 console.log(chalk.green('Starting obfuscation of'), chalk.greenBright.bold(args.input))
@@ -84,6 +84,7 @@ var map = { '𓆏ඞ𓆏ඞ𓆏': 'Boolean' }
 var _map: string[] = [ '𓆏ඞ𓆏ඞ𓆏' ]
 var _tokens = []
 var final = `function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ };const 𓆏ඞ𓆏ඞ𓆏 = Boolean;`
+var keyStrings: string[] = []
 
 // Redo some basics
 Redo.forEach((i) => {
@@ -118,22 +119,35 @@ tokens.forEach((i, n) => {
 
 			_map.push(rs)
 			map[i.value] = rs
-			_this.value = map[i.value]
+			_this.value = '/*ඞ\u202Eඞ*/' + map[i.value]
 		}
 	}
 
-	// Puting things after . to []
+	// Puting things after . to [] and encoding them
 	if (i.type === 'IdentifierName'
 	&& !DefaultIdentifierNames.includes(i.value)
 	&& tokens[(n-1)].value === '.') {
 		_tokens[(n-1)].value = '['
-		_this.value = `${randComment()}${JSON.stringify(i.value)}${randComment()}]`
+		_this.value = `${randComment()}${JSON.stringify(i.value.split('').reverse())}.reverse().join('')${randComment()}]`
 	}
 
-	// Putting things before : to []
+	// Putting things before : to [] and registering them to the get function
 	if (i.type === 'IdentifierName'
 	 && tokens[(n+1)].value === ':') {
-		_this.value = `[${randComment()}${JSON.stringify(i.value)}${randComment()}]`
+		const _r = [ rand(1, 10), rand(3, 7), rand(2, 16) ]
+
+		for (let i = 0; i < _r[0]; i++) {
+			keyStrings.push(randomstring.generate(rand(4, 16)))
+		}
+
+		const l = keyStrings.length
+		keyStrings.push(i.value)
+
+		for (let i = 0; i < _r[1]; i++) {
+			keyStrings.push(randomstring.generate(rand(4, 16)))
+		}
+
+		_this.value = `[${randComment()}Řඞř(${l / _r[2]}${randComment()},${_r[2]})${randComment()}]`
 	}
 
 	// Re-doing comments
@@ -192,7 +206,8 @@ tokens.forEach((i, n) => {
 	 && config.shrink) {
 		var _next: Token
 		for (let i = (n + 1); i < tokens.length; i++) { 
-			if (tokens[i].type != 'WhiteSpace') {
+			if (tokens[i].type != 'WhiteSpace'
+			 && tokens[i].type != 'LineTerminatorSequence') {
 				_next = tokens[i]
 				break
 			}
@@ -201,7 +216,8 @@ tokens.forEach((i, n) => {
 
 		var _prev: Token
 		for (let i = (n - 1); i >= 0; i--) { 
-			if (tokens[i].type != 'WhiteSpace') {
+			if (tokens[i].type != 'WhiteSpace'
+			&& tokens[i].type != 'LineTerminatorSequence') {
 				_prev = tokens[i]
 				break
 			}
@@ -217,14 +233,27 @@ tokens.forEach((i, n) => {
 		else _this.value = ';'
 	}
 
-	// Messing up whitespaces
+	// Messing up whitespaces and add extra rlo
 	if (i.type === 'WhiteSpace') {
-		_this.value = fill(' ', rand(1, 16))
+		_this.value = fill(' ', rand(1, 16)) + '/*\u202E*/'
 	}
 
 	_tokens.push(_this)
 	inform(n, _this)
 })
+
+// Prepare the final string
+final += `function Řඞř(Řඞřඞ,ඞŘඞř) {const ŘඞřඞඞŘඞř= [`
+
+keyStrings.forEach((i, n) => {
+	final += JSON.stringify(i)
+
+	if (rand(0, 2) % 2 === 0) final += '/*Řඞřඞ,\u202EඞŘඞř*/'
+	else final += '/*Řඞřඞ,ඞŘඞř*/'
+	if (keyStrings[n+1]) final += ','
+})
+
+final += `] ;return ŘඞřඞඞŘඞř[ඞŘඞř * Řඞřඞ]}`
 
 // Build the string
 _tokens.forEach((i) => { final += i.value })
@@ -249,6 +278,8 @@ if (config.amogus) {
 	if (config.amogus[0]) final = Amogus + final
 	if (config.amogus[1]) final = final + Amogus
 }
+
+if (config.epicEndArt) final += '\n' + EpicArt
 
 fs.writeFileSync(__file, final)
 

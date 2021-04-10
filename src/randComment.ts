@@ -7,7 +7,26 @@ export function randComment() {
 		'gay popbob sex dupe',
 		'ඞ sus ඞ',
 		'ඞsusඞ',
-		'𓆏ඞ𓆏ඞ𓆏'
+		'𓆏ඞ𓆏ඞ𓆏',
+		'\u202E',
+		'sus\u202E',
+		'amogus\u202E',
+		'gay popbob sex dupe\u202E',
+		'ඞ sus ඞ\u202E',
+		'ඞsusඞ\u202E',
+		'𓆏ඞ𓆏ඞ𓆏\u202E',
+		's\u202Eus',
+		'amog\u202Eus',
+		'gay\u202E popbob sex dupe',
+		'ඞ su\u202Es ඞ',
+		'ඞ\u202Esusඞ',
+		'𓆏ඞ𓆏\u202Eඞ𓆏',
+		'sigma balls',
+		'\u202Esigma balls',
+		'sigma \u202Eballs',
+		'sigma pog!!!!!!!!',
+		'\u202Esigma pog!!!!!!!!',
+		'sigma \u202Epog!!!!!!!!'
 	]
 
 	const str = comments[rand(0, (comments.length - 1))]
