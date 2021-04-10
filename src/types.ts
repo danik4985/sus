@@ -4,4 +4,5 @@ export interface Config {
 	shrink?: boolean
 	amogus?: [ boolean, boolean ]
 	lineStart?: boolean | string
+	redo?: string[]
 }

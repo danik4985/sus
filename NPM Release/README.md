@@ -14,25 +14,16 @@ Sh*tdows:
 npm install -g sus-obfuscator
 ```
 
-## Usage
-There is no `--help` flag, I'll make it later
-The CLI usage is `sus <args>`
-Arguments:
-```
--i --input [file]        Input file
--o --output [file]       Output file
--v --verbose             Set, if you want verbose output
--c --config [file]       Specify a YAML config file (more about that later)
--v --version             Prints version
--h --help                Shows help
-```
-
 ## YAML Config
 An example config file:
 ```yml
 ignore:
   - mc
   - registerScript
+
+redo:
+	- variable
+	- autoInvisibleImport
 
 removeEmptyLines: true
 shrink: false
@@ -49,6 +40,8 @@ lineStart: true
 **`amogus`**:`boolean[2]` - Add amogus ascii art on *[0]* start and *[1]* end
 
 **`lineStart`**:`string | boolean` - Adds your *string* or *ඞsusඞ* as a block comment to the start of each line
+
+**`redo`**:`string[]` - Keys that get renamed on the start, that were imported invisibly
 
 ## Github
 [danik4985/sus](https://github.com/danik4985/sus)

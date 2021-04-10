@@ -8,7 +8,7 @@ tsc
 
 # Obfuscate each file
 for i in out/*; do
-	node out/main.js "$i" "test-obfuscator/$(basename $i)"
+	node out/main.js --input "$i" --output "test-obfuscator/$(basename $i)" --config config.yml # --verbose
 done
 
 # Run the obfuscated compiler

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Version = exports.HelpText = exports.Amogus = exports.DefaultIdentifierNames = void 0;
+exports._Redo = exports.NotAddSemicolon = exports.Version = exports.HelpText = exports.Amogus = exports.DefaultIdentifierNames = void 0;
 exports.DefaultIdentifierNames = [
     'await',
     'break',
@@ -53,7 +53,6 @@ exports.DefaultIdentifierNames = [
     'clearImmediate',
     'clearInterval',
     'clearTimeout',
-    'console',
     'Event',
     'EventTarget',
     'exports',
@@ -72,13 +71,7 @@ exports.DefaultIdentifierNames = [
     'TextEncoder',
     'URL',
     'URLSearchParams',
-    'WebAssembly',
-    'String',
-    'Object',
-    'Array',
-    'Number',
-    'JSON',
-    'Math'
+    'WebAssembly'
 ];
 exports.Amogus = `/*⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠟⠉⠉⠉⠉⠉⠉⠉⠙⠻⢶⣄⠀⠀⠀⠀⠀
@@ -104,7 +97,19 @@ exports.HelpText = `
 -o --output [file]       Output file
 -v --verbose             Set, if you want verbose output
 -c --config [file]       Specify a YAML config file (more about that later)
--v --version             Prints version
+   --version             Prints version
 -h --help                Shows help
 `;
-exports.Version = '1.1.4';
+exports.Version = '1.2.0';
+exports.NotAddSemicolon = [
+    'else'
+];
+exports._Redo = [
+    'console',
+    'String',
+    'Object',
+    'Array',
+    'Number',
+    'JSON',
+    'Math'
+];

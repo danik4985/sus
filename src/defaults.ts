@@ -50,7 +50,6 @@ export const DefaultIdentifierNames = [
 	'clearImmediate',
 	'clearInterval',
 	'clearTimeout',
-	'console',
 	'Event',
 	'EventTarget',
 	'exports',
@@ -69,13 +68,7 @@ export const DefaultIdentifierNames = [
 	'TextEncoder',
 	'URL',
 	'URLSearchParams',
-	'WebAssembly',
-	'String',
-	'Object',
-	'Array',
-	'Number',
-	'JSON',
-	'Math'
+	'WebAssembly'
 ]
 
 export const Amogus = `/*⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀
@@ -103,8 +96,22 @@ export const HelpText = `
 -o --output [file]       Output file
 -v --verbose             Set, if you want verbose output
 -c --config [file]       Specify a YAML config file (more about that later)
--v --version             Prints version
+   --version             Prints version
 -h --help                Shows help
 `
 
-export const Version = '1.1.4'
+export const Version = '1.2.0'
+
+export const NotAddSemicolon = [
+	'else'
+]
+
+export const _Redo = [
+	'console',
+	'String',
+	'Object',
+	'Array',
+	'Number',
+	'JSON',
+	'Math'
+]

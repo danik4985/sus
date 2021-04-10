@@ -31,15 +31,15 @@ npm install -g sus-obfuscator
 
 ### Usage
 
-There is no `--help` flag, I'll make it later
 The CLI usage is `sus <args>`
+
 Arguments:
 ```
 -i --input [file]        Input file
 -o --output [file]       Output file
 -v --verbose             Set, if you want verbose output
 -c --config [file]       Specify a YAML config file (more about that later)
--v --version             Prints version
+   --version             Prints version
 -h --help                Shows help
 ```
 
@@ -49,6 +49,10 @@ An example config file:
 ignore:
   - mc
   - registerScript
+
+redo:
+	- variable
+	- autoInvisibleImport
 
 removeEmptyLines: true
 shrink: false
@@ -66,9 +70,11 @@ lineStart: true
 
 **`lineStart`**:`string | boolean` - Adds your *string* or *ඞsusඞ* as a block comment to the start of each line
 
+**`redo`**:`string[]` - Keys that get renamed on the start, that were imported invisibly
+
 ### Contributing
 
-I don't know how contributing works
+If you know how to fix any issue, please contribute
 
 #### Im not sure how contributing works, so here is the default git *thing*
 ```
@@ -89,4 +95,4 @@ git push -u origin main
 
 ### Issues
 
-There is a lot of issues, some described above. If you find a different issue, put it to the issues tab.
+There are some issues. If you find any, plese put them to the issues tab. I am working on fixing them. Sometimes, you need to obfuscate again. It is higly recomended to test your obfuscated code before releasing it.

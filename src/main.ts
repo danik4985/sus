@@ -7,25 +7,28 @@ import * as parser from 'simple-args-parser'
 import * as YAML from 'yaml'
 import * as chalk from 'chalk'
 
-import { Amogus, DefaultIdentifierNames } from './defaults'
+import { Amogus, DefaultIdentifierNames, NotAddSemicolon, _Redo } from './defaults'
 import { encase } from './encase'
 import { rand } from './rand'
 import { startsWithCapital } from './startsWithCapital'
 import { Config } from './types'
 import { printHelp, printVersion } from './misc'
+import { fill } from './fill'
+import { checkVersion } from './checkVersion'
+import { randComment } from './randComment'
 
 const jsTokens = require('js-tokens')
 
 // Parse arguments
 const _args: any = parser.parse(process.argv, {
 	long: ['input:', 'output:', 'config:', 'verbose', 'help', 'version'],
-	short: ['i:', 'o:', 'c:', 'v', 'h', 'v'],
+	short: ['i:', 'o:', 'c:', 'v', 'h'],
 	errOnDisallowed: true
 }, (err: string) => {
 	console.error(err)
 })
 
-/* HELP => */ if (_args.h || _args.help) printHelp()
+/* HELP    => */ if (_args.h || _args.help) printHelp()
 /* VERSION => */ if (_args.v || _args.version) printVersion()
 
 const args = {
@@ -41,8 +44,7 @@ if (!args.input
 	process.exit(8)
 }
 
-if (!args.output
-	|| !fs.existsSync(args.output)) {
+if (!args.output) {
 	 console.error('Error: Output file not found (9)')
 	 process.exit(9)
 }
@@ -59,9 +61,7 @@ else _config = {
 const config = _config
 
 // Inform function
-function inform(...data: any) {
-	if (args.verbose) console.log(...data)
-}
+function inform(...data: any) { if (args.verbose) console.log(...data) }
 
 // Terminal announcement
 console.log(chalk.green('Starting obfuscation of'), chalk.greenBright.bold(args.input))
@@ -75,13 +75,26 @@ inform('Config:', config)
 // Declare constants
 const _file = args.input
 const __file = args.output
-const raw = String(fs.readFileSync(_file))
+const raw = String(fs.readFileSync(_file)).split('#!/usr/bin/env node').join('')
 const tokens: Token[] = Array.from(jsTokens(raw))
+const Redo = (config.redo) ? _Redo.concat(config.redo) : _Redo
 
 // Declare variables
-var map = {}
-var _map: string[] = []
+var map = { '𓆏ඞ𓆏ඞ𓆏': 'Boolean' }
+var _map: string[] = [ '𓆏ඞ𓆏ඞ𓆏' ]
 var _tokens = []
+var final = `function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ };const 𓆏ඞ𓆏ඞ𓆏 = Boolean;`
+
+// Redo some basics
+Redo.forEach((i) => {
+	var rs = randomstring.generate({ length: 64, charset: 'řඞŘ' })
+	while (_map.includes(rs)) { rs = randomstring.generate({ length: 64, charset: 'řඞŘ' }) }
+
+	_map.push(rs)
+	map[i] = rs
+
+	final += `const ${rs}=${i};`
+})
 
 // Token loop
 tokens.forEach((i, n) => {
@@ -114,18 +127,18 @@ tokens.forEach((i, n) => {
 	&& !DefaultIdentifierNames.includes(i.value)
 	&& tokens[(n-1)].value === '.') {
 		_tokens[(n-1)].value = '['
-		_this.value = `/* gay popbob sex dupe */${JSON.stringify(i.value)}/* gay popbob sex dupe */]`
+		_this.value = `${randComment()}${JSON.stringify(i.value)}${randComment()}]`
 	}
 
 	// Putting things before : to []
 	if (i.type === 'IdentifierName'
 	 && tokens[(n+1)].value === ':') {
-		_this.value = `[/*amogus*/${JSON.stringify(i.value)}/*amogus*/]`
+		_this.value = `[${randComment()}${JSON.stringify(i.value)}${randComment()}]`
 	}
 
 	// Re-doing comments
 	if (i.type === 'MultiLineComment'
-	 || i.type === 'SingleLineComment') _this.value = '/* gay popbob sex dupe */'
+	 || i.type === 'SingleLineComment') _this.value = randComment()
 
 	// Strings
 	if (i.type === 'StringLiteral') {
@@ -144,7 +157,7 @@ tokens.forEach((i, n) => {
 
 		const strSplit = [ encase(stringValue.slice(0, _strLenA), stringStart), encase(stringValue.slice(_strLenB), stringStart) ]
 
-		_this.value = `řඞŘ(${strSplit[1]},/*ඞ sus ඞ*/ ${strSplit[0]})`
+		_this.value = `řඞŘ(${strSplit[1]},${randComment()} ${strSplit[0]})`
 	}
 
 	// Number
@@ -159,17 +172,54 @@ tokens.forEach((i, n) => {
 		const template = [ `(${rnum} * ${_r[3]})`, `(${_r[2]} * ${_num})` ]
 
 		if ((_r[0] % 2) === 0) {
-			_this.value = `řඞŘ(${template[1]},/*ඞ sus ඞ*/ ${template[0]})`
+			_this.value = `řඞŘ(${template[1]},${randComment()} ${template[0]})`
 		} else {
-			_this.value = `řඞŘ(${template[0]},/*ඞ sus ඞ*/ ${template[1]})`
+			_this.value = `řඞŘ(${template[0]},${randComment()} ${template[1]})`
 		}
 	}
 
+	// Boolean
+	if (i.type === 'IdentifierName' && (
+		i.value === 'true'
+ || i.value === 'false'
+	)) {
+		(i.value === 'true') ? _this.value = '𓆏ඞ𓆏ඞ𓆏(!![])' : _this.value = '𓆏ඞ𓆏ඞ𓆏(![])'
+	}
+
+	// Removing newlines
 	if (i.type === 'LineTerminatorSequence'
 	 && i.value === '\n'
 	 && config.shrink) {
-		inform('ENDED LINE - ADDED ;')
-		_this.value = ';'
+		var _next: Token
+		for (let i = (n + 1); i < tokens.length; i++) { 
+			if (tokens[i].type != 'WhiteSpace') {
+				_next = tokens[i]
+				break
+			}
+		}
+		const next = _next
+
+		var _prev: Token
+		for (let i = (n - 1); i >= 0; i--) { 
+			if (tokens[i].type != 'WhiteSpace') {
+				_prev = tokens[i]
+				break
+			}
+		}
+		const prev = _prev
+
+		if ((prev && prev.value === ',')
+		 || (prev && prev.value === '{')
+		 || (next && next.value === '}')
+		 || (next && next.value === '||')
+		 || (next && next.value === '&&')
+		 || (next && NotAddSemicolon.includes(next.value))) _this.value = ''
+		else _this.value = ';'
+	}
+
+	// Messing up whitespaces
+	if (i.type === 'WhiteSpace') {
+		_this.value = fill(' ', rand(1, 16))
 	}
 
 	_tokens.push(_this)
@@ -177,7 +227,6 @@ tokens.forEach((i, n) => {
 })
 
 // Build the string
-var final = 'function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ };'
 _tokens.forEach((i) => { final += i.value })
 
 // Remove empty lines
@@ -185,7 +234,7 @@ if (config.removeEmptyLines) {
 	var _final: string = ''
 	final.split('\n').forEach((i) => {
 		if (i != '' && i != ';') {
-			if (config.lineStart === true) _final += '/*ඞsusඞ*/'
+			if (config.lineStart === true) _final += randComment()
 			else if (config.lineStart) _final += `/*${config.lineStart}*/`
 
 			_final += i + '\n'
@@ -210,4 +259,7 @@ console.log(chalk.green('Done obfuscating'), chalk.greenBright.bold(_file), chal
 console.log('Verbose:', chalk.blue(args.verbose))
 console.log(chalk.dim.italic('Obfuscation was sucesfull'))
 
-console.timeEnd('Time')
+console.timeEnd('Time'); /* Semicolon has to be here, so that the following async block works */
+
+// Check version
+(async () => { checkVersion() })()

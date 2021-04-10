@@ -3,6 +3,6 @@ ignore:
   - registerScript
 
 removeEmptyLines: true
-shrink: false
-lineStart: sus
+shrink: true
+lineStart: true
 amogus: [ true, false ]
