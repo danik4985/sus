@@ -100,7 +100,7 @@ exports.HelpText = `
    --version             Prints version
 -h --help                Shows help
 `;
-exports.Version = '1.2.0';
+exports.Version = '1.2.1';
 exports.NotAddSemicolon = [
     'else'
 ];

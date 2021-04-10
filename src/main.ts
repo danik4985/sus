@@ -40,13 +40,13 @@ const args = {
 
 if (!args.input
  || !fs.existsSync(args.input)) {
-	console.error('Error: Input file not found (8)')
-	process.exit(8)
+	console.error(chalk.bold.red('Error: Input file not found (8)'))
+	printHelp()
 }
 
 if (!args.output) {
-	 console.error('Error: Output file not found (9)')
-	 process.exit(9)
+	 console.error(chalk.bold.red('Error: Output file not found (9)'))
+	 printHelp()
 }
 
 // Load config

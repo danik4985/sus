@@ -51,8 +51,8 @@ ignore:
   - registerScript
 
 redo:
-	- variable
-	- autoInvisibleImport
+  - variable
+  - autoInvisibleImport
 
 removeEmptyLines: true
 shrink: false

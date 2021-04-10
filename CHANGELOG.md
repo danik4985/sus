@@ -1,3 +1,7 @@
+# Version `1.2.1`
+- Fixed readme
+- Help will now be printed if you have an error with arguments
+
 # Version `1.2.0`
 - More configurable features
 - Random comments
