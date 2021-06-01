@@ -65,18 +65,13 @@ Arguments:
 ## YAML Config
 An example config file:
 ```yml
-ignore:
-  - mc
-  - registerScript
-
-redo:
-  - variable
-  - autoInvisibleImport
-
+ignore: []
+redo: []
 removeEmptyLines: true
-shrink: false
+shrink: true
 amogus: [ true, false ]
 lineStart: true
+epicEndArt: true
 fakeCode: true
 ```
 
@@ -91,6 +86,7 @@ fakeCode: true
 **`lineStart`**:`string | boolean` - Adds your *string* or *ඞsusඞ* as a block comment to the start of each line
 
 **`redo`**:`string[]` - Keys that get renamed on the start, that were imported invisibly
+
 **`fakeCode`**:`boolean` - Add fake code snippets
 
 ### Contributing
