@@ -113,7 +113,8 @@ export const _Redo = [
 	'Array',
 	'Number',
 	'JSON',
-	'Math'
+	'Math',
+	'Date'
 ]
 
 export const EpicArt = `/*⡯⡯⡾⠝⠘⠀   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢊⠘⡮⣣⠪⠢⡑⡌ ㅤ 

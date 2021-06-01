@@ -6,4 +6,5 @@ export interface Config {
 	lineStart?: boolean | string
 	redo?: string[]
 	epicEndArt?: boolean
+	fakeCode: boolean
 }

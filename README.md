@@ -75,8 +75,9 @@ redo:
 
 removeEmptyLines: true
 shrink: false
-amogus: [ true, false ],
+amogus: [ true, false ]
 lineStart: true
+fakeCode: true
 ```
 
 **`ignore`**:`string[]` - Keys that dont get renamed
@@ -90,6 +91,7 @@ lineStart: true
 **`lineStart`**:`string | boolean` - Adds your *string* or *ඞsusඞ* as a block comment to the start of each line
 
 **`redo`**:`string[]` - Keys that get renamed on the start, that were imported invisibly
+**`fakeCode`**:`boolean` - Add fake code snippets
 
 ### Contributing
 

@@ -1,8 +1,7 @@
-ignore:
-  - mc
-  - registerScript
-
+ignore: []
 removeEmptyLines: true
 shrink: true
-lineStart: true
 amogus: [ true, false ]
+lineStart: true
+epicEndArt: true
+fakeCode: true

@@ -26,7 +26,12 @@ export function randComment() {
 		'sigma \u202Eballs',
 		'sigma pog!!!!!!!!',
 		'\u202Esigma pog!!!!!!!!',
-		'sigma \u202Epog!!!!!!!!'
+		'sigma \u202Epog!!!!!!!!',
+		
+		'sugoma',
+		'epud xes bobpop yag',
+		'sllab amgis',
+		'!!!!!!!!gop amgis'
 	]
 
 	const str = comments[rand(0, (comments.length - 1))]

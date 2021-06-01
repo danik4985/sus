@@ -16,6 +16,8 @@ import { printHelp, printVersion } from './misc'
 import { fill } from './fill'
 import { checkVersion } from './checkVersion'
 import { randComment } from './randComment'
+import { FakeCodeManager } from './FakeCodeMaganer'
+import { BlankCodeManager } from './BlankCodeManager'
 
 const jsTokens = require('js-tokens')
 
@@ -29,7 +31,7 @@ const _args: any = parser.parse(process.argv, {
 })
 
 /* HELP    => */ if (_args.h || _args.help) printHelp()
-/* VERSION => */ if (_args.v || _args.version) printVersion()
+/* VERSION => */ if (_args.version) printVersion()
 
 const args = {
 	input: _args.i || _args.input,
@@ -52,11 +54,13 @@ if (!args.output) {
 // Load config
 var _config: Config
 if (args.config
- && fs.existsSync(args.config)) _config = YAML.parse(String(fs.readFileSync(args.config)))
-else _config = {
+ && fs.existsSync(args.config)) {
+	_config = YAML.parse(String(fs.readFileSync(args.config)))
+	inform('Loading custom config')
+} else _config = {
 	ignore: [], removeEmptyLines: true,
 	shrink: true, amogus: [ true, false ],
-	lineStart: false, epicEndArt: true
+	lineStart: true, epicEndArt: true, fakeCode: false
 }
 const config = _config
 
@@ -71,6 +75,7 @@ console.log(chalk.dim.italic('Plase be patient...'))
 console.time('Time')
 
 inform('Config:', config)
+inform('Args:', args)
 
 // Declare constants
 const _file = args.input
@@ -78,6 +83,9 @@ const __file = args.output
 const raw = String(fs.readFileSync(_file)).split('#!/usr/bin/env node').join('')
 const tokens: Token[] = Array.from(jsTokens(raw))
 const Redo = (config.redo) ? _Redo.concat(config.redo) : _Redo
+const fakeCode = (config.fakeCode) ? new FakeCodeManager() : new BlankCodeManager()
+
+inform(fakeCode)
 
 // Declare variables
 var map = { '𓆏ඞ𓆏ඞ𓆏': 'Boolean' }
@@ -94,21 +102,21 @@ Redo.forEach((i) => {
 	_map.push(rs)
 	map[i] = rs
 
-	final += `const ${rs}=${i};`
+	final += `const ${randComment()}\t${rs}=${i};`
 })
 
 // Token loop
 tokens.forEach((i, n) => {
 	var _this: Token = i
 
-	inform(n, i)
+	// inform(n, i)
 
 	// Renaming variables
 	if (i.type === 'IdentifierName'
 	 && !DefaultIdentifierNames.includes(i.value)
-	 && tokens[(n-1)].value != '.'
+	 && (!tokens[(n-1)] || tokens[(n-1)].value != '.')
 	 && tokens[(n+1)].value != ':'
-	 && !startsWithCapital(i.value)
+// && !startsWithCapital(i.value)
 	 && !config.ignore.includes(i.value)) {
 
 		if (map[i.value]) { // This value exists
@@ -126,7 +134,7 @@ tokens.forEach((i, n) => {
 	// Puting things after . to [] and encoding them
 	if (i.type === 'IdentifierName'
 	&& !DefaultIdentifierNames.includes(i.value)
-	&& tokens[(n-1)].value === '.') {
+	&& tokens[(n-1)] && tokens[(n-1)].value === '.') {
 		_tokens[(n-1)].value = '['
 		_this.value = `${randComment()}${JSON.stringify(i.value.split('').reverse())}.reverse().join('')${randComment()}]`
 	}
@@ -202,8 +210,7 @@ tokens.forEach((i, n) => {
 
 	// Removing newlines
 	if (i.type === 'LineTerminatorSequence'
-	 && i.value === '\n'
-	 && config.shrink) {
+	 && i.value === '\n') {
 		var _next: Token
 		for (let i = (n + 1); i < tokens.length; i++) { 
 			if (tokens[i].type != 'WhiteSpace'
@@ -224,22 +231,45 @@ tokens.forEach((i, n) => {
 		}
 		const prev = _prev
 
+		inform('DEBUG: ', prev, next)
+		// inform('=', next.value === ')')
+
+		if (config.shrink && (
+			  (prev && prev.value === ',')
+		 || (prev && prev.value === '(')
+		 || (prev && prev.value === '{')
+		 || (next && next.value === ')')
+		 || (next && next.value === '}')
+		 || (next && next.value === '||')
+		 || (next && next.value === '&&')
+		 || (next && NotAddSemicolon.includes(next.value)))) _this.value = ''
+		else _this.value = ';'
+
+		// inform('VALUE', _this.value)
+
 		if ((prev && prev.value === ',')
 		 || (prev && prev.value === '{')
 		 || (next && next.value === '}')
 		 || (next && next.value === '||')
 		 || (next && next.value === '&&')
-		 || (next && NotAddSemicolon.includes(next.value))) _this.value = ''
-		else _this.value = ';'
+		 || (next && next.value === ')')
+		 || (next && NotAddSemicolon.includes(next.value))) {}
+		else {
+			if (config.fakeCode) {
+				var data = fakeCode.generate()
+				if (config.shrink) data = data.split('\n').join(';')
+				_this.value += data
+			}
+		}
 	}
 
 	// Messing up whitespaces and add extra rlo
 	if (i.type === 'WhiteSpace') {
-		_this.value = fill(' ', rand(1, 16)) + '/*\u202E*/'
+		_this.value = fill(' ', rand(1, 16)) + (rand(0, 2) % 2 === 0) ? '/*\u202E*/' : '/**//**/'
 	}
 
 	_tokens.push(_this)
-	inform(n, _this)
+	// inform(n, _this)
 })
 
 // Prepare the final string
