@@ -1,3 +1,6 @@
+# Version `1.4.1`
+- Fixed the issue that I forgot to update the version constant
+
 # Version `1.4.0`
 - Issue #2 fixed
 - New **beta** feature: fake code

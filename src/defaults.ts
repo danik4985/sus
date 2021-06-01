@@ -99,7 +99,7 @@ export const HelpText = `
 -h --help                Shows help
 `
 
-export const Version = '1.3.0'
+export const Version = '1.4.0'
 
 export const NotAddSemicolon = [
 	'else'
