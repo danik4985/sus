@@ -1,3 +1,8 @@
+# Version `1.4.0`
+- Issue #2 fixed
+- New **beta** feature: fake code
+- *I forgot, someone fix this for me please*
+
 # Version `1.3.0`
 - Special characters are now used to make the code less readable
 - New string encoding used in some cases
