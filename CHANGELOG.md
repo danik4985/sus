@@ -1,3 +1,6 @@
+# Version `1.4.2`
+- This time, the fix should work
+
 # Version `1.4.1`
 - Fixed the issue that I forgot to update the version constant
 
