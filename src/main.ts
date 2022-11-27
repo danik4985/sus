@@ -48,7 +48,7 @@ if (help) {
 	process.exit(0)
 }
 
-if (VERSION) {
+if (version) {
 	console.log(VERSION)
 	process.exit(0)
 }
