@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"module": "CommonJS",
+		"target": "ES2021",
+		"skipLibCheck": true,
+		"outDir": "out",
+		"removeComments": true
+	},
+	"include": ["src/**/*.ts"]
+}
