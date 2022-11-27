@@ -26,7 +26,7 @@ import { error } from './log/error'
 import { traverse } from './traverse/traverse'
 import { REDONE_PAIRS } from './obfuscate/obfuscateName'
 import { checkVersion, printVersionInfo } from './program/checkVersion'
-import { VERSION } from './program/constants'
+import { HELP_TEXT, VERSION } from './program/constants'
 
 const program = new commander.Command()
 
@@ -41,7 +41,17 @@ program.helpOption(false)
 
 const opts = program.parse().opts()
 
-const { input, output, config } = opts
+const { input, output, config, help, version } = opts
+
+if (help) {
+	console.log(HELP_TEXT)
+	process.exit(0)
+}
+
+if (VERSION) {
+	console.log(VERSION)
+	process.exit(0)
+}
 
 if (!input) {
 	error('You must specify an input', true)
