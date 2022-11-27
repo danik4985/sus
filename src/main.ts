@@ -95,6 +95,7 @@ console.log(kolorist.white('Done in ' + kolorist.magenta((Date.now() - t) + ' ms
 fs.writeFileSync(output, result)
 
 ;(async () => {
-	const { currentVersion, latestVersion } = await vcheckPromise
+	var { currentVersion, latestVersion } = await vcheckPromise
+	currentVersion = currentVersion.slice(1)
 	if (currentVersion !== latestVersion) printVersionInfo([ currentVersion, latestVersion ])
 })()
