@@ -1,4 +1,4 @@
-export const VERSION = `v2.0.0`
+export const VERSION = `v2.0.3`
 
 export const HELP_TEXT = `
 sus - an epic amogus themed javascript obfuscator
