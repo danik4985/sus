@@ -33,7 +33,7 @@ It will probably work with lower versions too, but it is being developed and tes
 
 ### Installing
 
-[sus can be installed from NPM](https://www.npmjs.com/package/@the-real-danik/sus)
+[sus can be installed from NPM](https://www.npmjs.com/package/sus-obfuscator)
 
 ```sh
 npm install -g sus-obfuscator
