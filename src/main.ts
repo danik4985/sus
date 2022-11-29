@@ -27,6 +27,8 @@ import { traverse } from './traverse/traverse'
 import { REDONE_PAIRS } from './obfuscate/obfuscateName'
 import { checkVersion, printVersionInfo } from './program/checkVersion'
 import { HELP_TEXT, VERSION } from './program/constants'
+import { applyLines } from './obfuscate/applyLines'
+import { applyArt } from './obfuscate/applyArt'
 
 const program = new commander.Command()
 
@@ -90,9 +92,18 @@ ${mapped};
 ${obf};
 `
 
+var finalResult = result
+
+if (cfg().format.removeEmptyLines)
+	while (finalResult.includes('\n\n')) finalResult = finalResult.replaceAll('\n\n', '\n')
+if (cfg().format.shrink) finalResult = finalResult.replaceAll('\n', ';')
+
+finalResult = applyLines(finalResult)
+finalResult = applyArt(finalResult)
+
 console.log(kolorist.white('Done in ' + kolorist.magenta((Date.now() - t) + ' ms')))
 
-fs.writeFileSync(output, result)
+fs.writeFileSync(output, finalResult)
 
 ;(async () => {
 	var { currentVersion, latestVersion } = await vcheckPromise
