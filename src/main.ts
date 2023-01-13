@@ -29,6 +29,7 @@ import { checkVersion, printVersionInfo } from './program/checkVersion'
 import { HELP_TEXT, VERSION } from './program/constants'
 import { applyLines } from './obfuscate/applyLines'
 import { applyArt } from './obfuscate/applyArt'
+import { Randomizer } from './random/Randomizer'
 
 const program = new commander.Command()
 
@@ -36,6 +37,7 @@ program
 	.option('-i, --input <file>', 'Input file')
 	.option('-o, --output <file>', 'Output file')
 	.option('-c, --config <file>', 'Config file')
+	.option('-s, --logseed', 'Print out the seed at the end')
 	.option('-h, --help', 'Get help')
 	.option('-v, --version', 'Get the version')
 
@@ -43,7 +45,7 @@ program.helpOption(false)
 
 const opts = program.parse().opts()
 
-const { input, output, config, help, version } = opts
+const { input, output, config, help, version, logseed } = opts
 
 if (help) {
 	console.log(HELP_TEXT)
@@ -77,18 +79,26 @@ export const CONFIG_PATH = config
 const string = String(fs.readFileSync(input))
 const ast = espree.parse(string, { ecmaVersion: cfg().input.esVersion })
 
+new Randomizer(cfg().input.seed)
+
 // console.log(util.inspect(ast, false, Infinity, true))
 
 console.log(kolorist.white('Obfuscating ' + kolorist.green(input) + ' with sus ' + kolorist.yellow(VERSION)))
 const t = Date.now()
 
+var aFnName = Randomizer.INSTANCE.randIName(64)
+var bFnName = Randomizer.INSTANCE.randIName(64)
+
+export const A_FNC_NAME = () => aFnName
+export const B_FNC_NAME = () => bFnName
+
 const obf = traverse(ast.body)
 const mapped = REDONE_PAIRS.map(([og, n]) => `const ${n}=${og}`).join(';')
 
 const result = `
-function řඞŘ(řඞŘඞ, řඞŘඞř) { return řඞŘඞř + řඞŘඞ };Řඞř=Boolean;ŘඞřŘ=Array;
+function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ };const ${B_FNC_NAME()}=Boolean,ŘඞřŘ=Array;
 ${mapped};
-řŘඞřŘ=RegExp;
+const řŘඞřŘ=RegExp;
 ${obf};
 `
 
@@ -102,6 +112,10 @@ finalResult = applyLines(finalResult)
 finalResult = applyArt(finalResult)
 
 console.log(kolorist.white('Done in ' + kolorist.magenta((Date.now() - t) + ' ms')))
+
+if (logseed) {
+	console.log('\tObfuscation seed is ' + kolorist.green(cfg().input.seed))
+}
 
 fs.writeFileSync(output, finalResult)
 

@@ -1,5 +1,5 @@
-import * as randomstring from 'randomstring'
 import { cfg } from '../config/cfg'
+import { Randomizer } from '../random/Randomizer'
 
 const map: { [k: string]: string } = {}
 const _map: string[] = []
@@ -100,8 +100,8 @@ export function _obfuscateName(name: string, bfRD = false) {
 		ranDefaults = true
 	}
 	if (map[name]) return map[name]
-	var rs = randomstring.generate({ length: 64, charset: 'řඞŘ' })
-	while (_map.includes(rs)) rs = randomstring.generate({ length: 64, charset: 'řඞŘ' })
+	var rs = Randomizer.INSTANCE.randIName(64)
+	while (_map.includes(rs)) rs = Randomizer.INSTANCE.randIName(64)
 	_map.push(rs)
 	map[name] = rs
 	return rs

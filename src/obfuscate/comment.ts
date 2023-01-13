@@ -1,5 +1,5 @@
 import { cfg } from '../config/cfg'
-import { rand } from '../util/rand'
+import { Randomizer } from '../random/Randomizer'
 
 export function comment(layer: number) {
 	if (layer <= cfg().format.commentFrequency) {
@@ -36,10 +36,10 @@ export function comment(layer: number) {
 			'!!!!!!!!gop amgis'
 		]
 	
-		const str = comments[rand(0, (comments.length - 1))]
+		const str = comments[Randomizer.INSTANCE.rand(0, (comments.length - 1))]
 		const s = [
-			(rand(0, 2) % 2 === 0) ? ' ' : '',
-			(rand(0, 2) % 2 === 0) ? ' ' : ''
+			(Randomizer.INSTANCE.rand(0, 2) % 2 === 0) ? ' ' : '',
+			(Randomizer.INSTANCE.rand(0, 2) % 2 === 0) ? ' ' : ''
 		]
 	
 		return `/*${s[0]}${str}${s[1]}*/`

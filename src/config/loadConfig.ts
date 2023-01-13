@@ -1,5 +1,6 @@
 import * as fs from 'fs'
 import * as YAML from 'yaml'
+import { createRandomSeed } from '../random/createRandomSeed'
 
 import { Config } from './Config'
 
@@ -50,7 +51,8 @@ export function loadConfig(f: string): Config {
 		},
 
 		input: {
-			esVersion: numer(obj.input?.esVersion, 6)
+			esVersion: numer(obj.input?.esVersion, 6),
+			seed: obj.input?.seed || createRandomSeed()
 		}
 	}
 

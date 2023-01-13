@@ -28,5 +28,6 @@ export interface Config {
 
 	input: {
 		esVersion: number
+		seed: string
 	}
 }
