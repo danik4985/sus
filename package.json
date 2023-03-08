@@ -1,6 +1,6 @@
 {
   "name": "sus-obfuscator",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "An epic javascript amogus-themed obfuscator",
   "main": "out/main.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "commander": "^9.4.1",
     "espree": "^9.4.1",
     "kolorist": "^1.6.0",
+    "node-cache": "^5.1.2",
     "npm-api": "^1.0.1",
     "randomstring": "^1.2.3",
     "seedrandom": "^3.0.5",

@@ -1,5 +1,6 @@
 import * as NpmApi from 'npm-api'
 import * as kolorist from 'kolorist'
+import * as Cache from 'node-cache'
 
 import { fill } from '../util/fill'
 import { calcLength } from '../util/calcLength'
@@ -24,12 +25,22 @@ Version ${kolorist.yellow(version[0])} --> ${kolorist.bold(kolorist.green(versio
 }
 
 export async function checkVersion() {
+	const cache = new Cache()
+
+	const lc = cache.get('checked_for_update')
+
+	if (lc) {
+		return { currentVersion: VERSION, latestVersion: VERSION }
+	}
+
 	const currentVersion = VERSION
 	const npm = new NpmApi()
 
 	const repo = npm.repo('sus-obfuscator')
 	const _package = await repo.package()
 	const latestVersion = _package.version
+
+	cache.set('checked_for_update', true, 1800)
 
 	return { currentVersion, latestVersion }
 }
