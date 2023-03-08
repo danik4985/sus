@@ -31,7 +31,9 @@ export function loadConfig(f: string): Config {
 			stringObfLevel: tlvl(obj.transforms?.stringObfLevel, 3),
 			numberObfLevel: tlvl(obj.transforms?.numberObfLevel, 3),
 
-			ignore: arr(obj.transforms?.ignore, [])
+			ignore: arr(obj.transforms?.ignore, []),
+
+			webMode: obj.transforms?.webMode ?? false
 		},
 	
 		format: {

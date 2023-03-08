@@ -8,6 +8,7 @@ export interface Config {
 		numberObfLevel: 0 | 1 | 2 | 3
 
 		ignore: string[]
+		webMode: boolean
 	}
 
 	format: {

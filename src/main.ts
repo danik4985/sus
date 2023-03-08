@@ -24,7 +24,7 @@ import * as kolorist from 'kolorist'
 import { cfg } from './config/cfg'
 import { error } from './log/error'
 import { traverse } from './traverse/traverse'
-import { REDONE_PAIRS } from './obfuscate/obfuscateName'
+import { REDONE_PAIRS, updateRedo } from './obfuscate/obfuscateName'
 import { checkVersion, printVersionInfo } from './program/checkVersion'
 import { HELP_TEXT, VERSION } from './program/constants'
 import { applyLines } from './obfuscate/applyLines'
@@ -91,6 +91,8 @@ var bFnName = Randomizer.INSTANCE.randIName(64)
 
 export const A_FNC_NAME = () => aFnName
 export const B_FNC_NAME = () => bFnName
+
+updateRedo()
 
 const obf = traverse(ast.body)
 const mapped = REDONE_PAIRS.map(([og, n]) => `const ${n}=${og}`).join(';')

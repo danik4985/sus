@@ -68,6 +68,8 @@ transforms:
 
     ignore: [ 'myImportedVariable' ]
 
+		webMode: false
+
 format:
     amogus:
         start: true
@@ -107,6 +109,8 @@ input:
 **`shrink`**`:boolean` - Make the result be one line only
 
 **`commentFrequency`**`:0~3` - How frequent should random distractive comments be
+
+**`webMode`**`:boolean` - Set this to true if you are obfuscating for the web
 
 #### Format
 

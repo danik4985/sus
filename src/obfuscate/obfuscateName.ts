@@ -79,13 +79,23 @@ const defaults = [
 const REDO = [
 	'String',
 	'Object',
-	'require',
 	'Number',
 	'JSON',
 	'Math',
 	'Date',
 	'console'
 ]
+
+export function updateRedo() {
+	if (cfg().transforms.webMode) {
+		REDO.push('document')
+		REDO.push('localStorage')
+		REDO.push('window')
+		REDO.push('fetch')
+	} else {
+		REDO.push('require')
+	}
+}
 
 export const REDONE_PAIRS: string[][] = []
 
