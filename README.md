@@ -1,6 +1,11 @@
-# sus
-
+<!--
 ![amogus](https://pbs.twimg.com/profile_images/1360028157177397249/a0ypQ9W7_400x400.jpg)
+-->
+
+<p align="center">
+    <img src="icon.jpg" alt="haha funny amogus">
+    <h1 style="text-align:center;" align="center">sus obfuscator</h1>
+</p>
 
 An epic amogus themed javascript obfuscator. Written in typescript. And now rewritten to be actually good!
 
@@ -88,7 +93,7 @@ format:
 
 input:
     esVersion: 2023
-		seed: '...' # This is generated randomly each run if you do not set it manually
+        seed: '...' # This is generated randomly each run if you do not set it manually
 ```
 
 #### Transforms
