@@ -68,7 +68,7 @@ transforms:
 
     ignore: [ 'myImportedVariable' ]
 
-		webMode: false
+    webMode: false
 
 format:
     amogus:
@@ -163,7 +163,7 @@ If you have any questions, or need support, you can contact me here *(sorted fro
 - ![image](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT934Wi_Omrf8QNQnXVh94lKyoRF8Nu576htndDDLwBwlC2tRrUCED_ge5eIUZKgcQQTWc&usqp=CAU) `@danik4985:matrix.org`
 -->
 
-- <img src="https://preview.redd.it/6spnrz1it4071.png?auto=webp&s=0057b0108d50a8782b03802d7f12aafcb7776829" height="25"> `danik#4985`
+- <img src="https://cdn.discordapp.com/emojis/843189087586222091.webp?size=96&quality=lossless" height="25"> `danik#4985`
 - <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT934Wi_Omrf8QNQnXVh94lKyoRF8Nu576htndDDLwBwlC2tRrUCED_ge5eIUZKgcQQTWc&usqp=CAU" height="25"> `@danik4985:matrix.org`
 - <img src="https://upload.wikimedia.org/wikipedia/en/3/35/Geometry_Dash_Logo.PNG" height="25"> `susdanik`
 

@@ -1,4 +1,5 @@
 import { cfg } from '../config/cfg'
+import { warn } from '../log/warn'
 import { obfuscateName } from '../obfuscate/obfuscateName'
 import { anonFunction } from './anonFunction'
 import { arrayExpression } from './arrayExpression'
@@ -9,13 +10,14 @@ import { conditionalExpression } from './conditionalExpression'
 import { leftExpression } from './leftExpression'
 import { literalExpression } from './literalExpression'
 import { memberExpression } from './memberExpression'
+import { newExpression } from './newExpression'
 import { objectExpression } from './objectExpression'
 import { templateString } from './templateString'
 import { unaryExpression } from './unaryExpression'
 import { updateExpression } from './updateExpression'
 
 export function rightExpression(expr: any) {
-	const maybeLeft = leftExpression(expr)
+	const maybeLeft = leftExpression(expr, false)
 	if (maybeLeft !== null) return maybeLeft
 
 	if (expr.type === 'Literal') {
@@ -44,5 +46,7 @@ export function rightExpression(expr: any) {
 		return unaryExpression(expr)
 	} else if (expr.type === 'MemberExpression') {
 		return memberExpression(expr)
-	}
+	} else if (expr.type === 'NewExpression') {
+		return newExpression(expr)
+	} else warn(`Unknown expression type in rightExpression(e) : ${expr.type}`)
 }
