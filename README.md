@@ -55,7 +55,7 @@ Arguments:
 
 ### YAML Config
 
-An example config file:
+The default configuration goes as follows:
 
 ```yml
 transforms:
@@ -66,7 +66,7 @@ transforms:
     stringObfLevel: 3
     numberObfLevel: 3
 
-    ignore: [ 'myImportedVariable' ]
+    ignore: []
 
     webMode: false
 
@@ -88,6 +88,7 @@ format:
 
 input:
     esVersion: 2023
+		seed: '...' # This is generated randomly each run if you do not set it manually
 ```
 
 #### Transforms
@@ -127,6 +128,7 @@ input:
 #### Input
 
 **`esVersion`**`:number` - The ECMAscript version of your JS source code
+**`seed`**`:string` - Seed for the random number generator
 
 ### Contributing
 
