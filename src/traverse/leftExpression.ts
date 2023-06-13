@@ -19,7 +19,7 @@ export function leftExpression(expr: any, warnMsg = true): string {
 		return objectPattern(expr)
 	} else if (expr.type === 'ArrayPattern') {
 		return arrayPattern(expr)
-	} else if (warnMsg) warn(`Unknown expression type in leftExpression(e) : ${expr.type}`)
+	} else if (warnMsg) warn(`Unknown expression type in leftExpression(e) : ${expr.type} ${JSON.stringify(expr)}`)
 
 	return null
 }

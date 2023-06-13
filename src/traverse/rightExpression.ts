@@ -3,6 +3,7 @@ import { warn } from '../log/warn'
 import { obfuscateName } from '../obfuscate/obfuscateName'
 import { anonFunction } from './anonFunction'
 import { arrayExpression } from './arrayExpression'
+import { assignmentExpression } from './assignmentExpression'
 import { awaitExpression } from './awaitExpression'
 import { binaryExpression } from './binaryExpression'
 import { callExpression } from './callExpression'
@@ -12,6 +13,7 @@ import { literalExpression } from './literalExpression'
 import { memberExpression } from './memberExpression'
 import { newExpression } from './newExpression'
 import { objectExpression } from './objectExpression'
+import { sequenceExpression } from './sequenceExpression'
 import { templateString } from './templateString'
 import { unaryExpression } from './unaryExpression'
 import { updateExpression } from './updateExpression'
@@ -48,5 +50,9 @@ export function rightExpression(expr: any) {
 		return memberExpression(expr)
 	} else if (expr.type === 'NewExpression') {
 		return newExpression(expr)
+	} else if (expr.type === 'SequenceExpression') {
+		return sequenceExpression(expr)
+	} else if (expr.type === 'AssignmentExpression') {
+		return '(' + assignmentExpression(expr) + ')'
 	} else warn(`Unknown expression type in rightExpression(e) : ${expr.type}`)
 }
