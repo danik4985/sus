@@ -133,6 +133,7 @@ input:
 #### Input
 
 **`esVersion`**`:number` - The ECMAscript version of your JS source code
+
 **`seed`**`:string` - Seed for the random number generator
 
 ### Contributing
