@@ -2,7 +2,7 @@
 
 /*
 			sus obfuscator - sussify your javascript!
-			Copyright (C) 2022 danik
+			Copyright (C) 2023 danik
 
 			This program is free software: you can redistribute it and/or modify
 			it under the terms of the GNU General Public License as published by

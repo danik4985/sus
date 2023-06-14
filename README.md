@@ -93,7 +93,7 @@ format:
 
 input:
     esVersion: 2023
-        seed: '...' # This is generated randomly each run if you do not set it manually
+    seed: '...' # This is generated randomly each run if you do not set it manually
 ```
 
 #### Transforms
@@ -178,7 +178,7 @@ If you have any questions, or need support, you can contact me here *(sorted fro
 
 ```
 sus obfuscator - sussify your javascript!
-Copyright (C) 2022 danik
+Copyright (C) 2023 danik
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

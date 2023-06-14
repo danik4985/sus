@@ -11,5 +11,5 @@ Usage: sus [arguments]
 	-v, --version                Get the version
 
 Version ${VERSION}
-Copyright (C) 2022 danik - under the GPLv3 license
+Copyright (C) 2023 danik - under the GPLv3 license
 `
