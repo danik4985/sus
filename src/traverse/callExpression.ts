@@ -6,7 +6,11 @@ export function callExpression(expr: any) {
 
 	data += comment(3)
 	data += rightExpression(expr.callee)
-	data += ')' + comment(2) + '('
+	data += ')' + comment(2) // + '('
+
+	if (expr.optional) data += '?.'
+	
+	data += '('
 
 	// console.log(expr, data)
 	

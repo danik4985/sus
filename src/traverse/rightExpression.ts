@@ -7,6 +7,7 @@ import { assignmentExpression } from './assignmentExpression'
 import { awaitExpression } from './awaitExpression'
 import { binaryExpression } from './binaryExpression'
 import { callExpression } from './callExpression'
+import { chainExpression } from './chainExpression'
 import { conditionalExpression } from './conditionalExpression'
 import { leftExpression } from './leftExpression'
 import { literalExpression } from './literalExpression'
@@ -54,5 +55,7 @@ export function rightExpression(expr: any) {
 		return sequenceExpression(expr)
 	} else if (expr.type === 'AssignmentExpression') {
 		return '(' + assignmentExpression(expr) + ')'
+	} else if (expr.type === 'ChainExpression') {
+		return chainExpression(expr)
 	} else warn(`Unknown expression type in rightExpression(e) : ${expr.type}`)
 }

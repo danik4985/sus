@@ -24,7 +24,7 @@ import * as kolorist from 'kolorist'
 import { cfg } from './config/cfg'
 import { error } from './log/error'
 import { traverse } from './traverse/traverse'
-import { REDONE_PAIRS, updateRedo } from './obfuscate/obfuscateName'
+import { addObfuscated, REDONE_PAIRS, updateRedo } from './obfuscate/obfuscateName'
 import { checkVersion, printVersionInfo } from './program/checkVersion'
 import { HELP_TEXT, VERSION } from './program/constants'
 import { applyLines } from './obfuscate/applyLines'
@@ -38,6 +38,7 @@ program
 	.option('-o, --output <file>', 'Output file')
 	.option('-c, --config <file>', 'Config file')
 	.option('-s, --logseed', 'Print out the seed at the end')
+	.option('-n, --noupdate', 'Don\'t check for updates')
 	.option('-h, --help', 'Get help')
 	.option('-v, --version', 'Get the version')
 
@@ -45,7 +46,7 @@ program.helpOption(false)
 
 const opts = program.parse().opts()
 
-const { input, output, config, help, version, logseed } = opts
+const { input, output, config, help, version, logseed, noupdate } = opts
 
 if (help) {
 	console.log(HELP_TEXT)
@@ -72,7 +73,7 @@ if (!config) {
 	process.exit(1)
 }
 
-const vcheckPromise = checkVersion()
+const vcheckPromise = noupdate ? null : checkVersion()
 
 export const CONFIG_PATH = config
 
@@ -88,19 +89,26 @@ const t = Date.now()
 
 var aFnName = Randomizer.INSTANCE.randIName(64)
 var bFnName = Randomizer.INSTANCE.randIName(64)
+var rFnName = Randomizer.INSTANCE.randIName(64)
+var eFnName = Randomizer.INSTANCE.randIName(64)
 
 export const A_FNC_NAME = () => aFnName
 export const B_FNC_NAME = () => bFnName
+export const R_FNC_NAME = () => rFnName
+export const E_FNC_NAME = () => eFnName
 
 updateRedo()
+
+addObfuscated('Array', rFnName)
+addObfuscated('RegExp', eFnName)
 
 const obf = traverse(ast.body)
 const mapped = REDONE_PAIRS.map(([og, n]) => `const ${n}=${og}`).join(';')
 
 const result = `
-function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ };const ${B_FNC_NAME()}=Boolean,ŘඞřŘ=Array;
+function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ };const ${B_FNC_NAME()}=Boolean;
 ${mapped};
-const řŘඞřŘ=RegExp;
+const ${rFnName} = Array;const ${eFnName}=RegExp;
 ${obf};
 `
 
@@ -122,6 +130,8 @@ if (logseed) {
 fs.writeFileSync(output, finalResult)
 
 ;(async () => {
+	if (noupdate) return
+
 	var { currentVersion, latestVersion } = await vcheckPromise
 	currentVersion = currentVersion.slice(1)
 	if (currentVersion !== latestVersion) printVersionInfo([ currentVersion, latestVersion ])

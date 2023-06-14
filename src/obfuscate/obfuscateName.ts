@@ -83,7 +83,8 @@ const REDO = [
 	'JSON',
 	'Math',
 	'Date',
-	'console'
+	'console',
+	'Buffer'
 ]
 
 export function updateRedo() {
@@ -100,6 +101,11 @@ export function updateRedo() {
 export const REDONE_PAIRS: string[][] = []
 
 var ranDefaults = false
+
+export function addObfuscated(ogName: string, newName: string) {
+	map[ogName] = newName
+	_map.push(newName)
+}
 
 export function _obfuscateName(name: string, bfRD = false) {
 	if (!ranDefaults && !bfRD) {

@@ -4,8 +4,8 @@ import { stringObf } from "../obfuscate/stringObf"
 import { awaitExpression } from "./awaitExpression"
 import { rightExpression } from "./rightExpression"
 
-export function memberExpression({ object, property, computed }) {
-	var data = ''
+export function memberExpression({ object, property, computed, optional }) {
+	var data = '('
 
 	if (object.type === 'MemberExpression') {
 		data += memberExpression(object)
@@ -17,6 +17,10 @@ export function memberExpression({ object, property, computed }) {
 	} else {
 		data += rightExpression(object)
 	}
+
+	data += ')'
+
+	if (optional) data += '?.'
 
 	data += '['
 

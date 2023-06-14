@@ -1,3 +1,4 @@
+import { E_FNC_NAME } from '../main'
 import { booleanObf } from '../obfuscate/booleanObf'
 import { comment } from '../obfuscate/comment'
 import { numberObf } from '../obfuscate/numberObf'
@@ -15,6 +16,6 @@ export function literalExpression({ value, regex }: any) {
 	} else if (value === null) {
 		return 'null' + comment(2)
 	} else if (regex !== null) {
-		return `new řŘඞřŘ(${stringObf(regex.pattern)}, ${JSON.stringify(regex.flags)})`
+		return `new ${E_FNC_NAME()}(${stringObf(regex.pattern)}, ${JSON.stringify(regex.flags)})`
 	}
 }
