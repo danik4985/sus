@@ -9,6 +9,14 @@
 
 An epic amogus themed javascript obfuscator. Written in typescript. And now rewritten to be actually good!
 
+<p align="center">
+	<img src="https://img.shields.io/npm/v/sus-obfuscator?label=version">
+	<img src="https://img.shields.io/npm/l/sus-obfuscator?color=green">
+	<img src="https://img.shields.io/github/issues/danik4985/sus?color=orange">
+	<img src="https://img.shields.io/npm/dt/sus-obfuscator?color=lightgray">
+	<img src="https://img.shields.io/github/stars/danik4985/sus?color=pink">
+</p>
+
 ### Why use `sus`?
 
 Sus provides better obfuscation than other obfuscators. It might require trying the obfuscation with different configs, but its worth it. It uses lots of different obfuscation methods and is much harder to read then obfuscators like [obfuscator.io](https://obfuscator.io). It is also much harder to deobfuscate then other obfuscators:
@@ -141,29 +149,11 @@ input:
 
 ### Contributing
 
-If you know how to fix any issue or improve anything, please contribute
-
-#### Im not sure how contributing works, so here is the default git *thing*
-
-```
-echo "# sus" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/danik4985/sus.git
-git push -u origin main
-```
-
-```
-git remote add origin https://github.com/danik4985/sus.git
-git branch -M main
-git push -u origin main
-```
+If you know how to fix any issue or improve anything, please contribute.
 
 ### Issues
 
-There are some issues. If you find any, plese put them to the issues tab. I am working on fixing them. It is recomended to test your obfuscated code before releasing it.
+There are some issues. If you find any, plese put them to the issues tab. I may or may not be working on fixing them. It is recomended to test your obfuscated code before releasing it.
 
 ### Contact
 
