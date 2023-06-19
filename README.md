@@ -15,6 +15,7 @@ An epic amogus themed javascript obfuscator. Written in typescript. And now rewr
 	<img src="https://img.shields.io/github/issues/danik4985/sus?color=orange">
 	<img src="https://img.shields.io/npm/dt/sus-obfuscator?color=lightgray">
 	<img src="https://img.shields.io/github/stars/danik4985/sus?color=pink">
+	<img src="https://img.shields.io/badge/amogus-sus-purple">
 </p>
 
 ### Why use `sus`?
