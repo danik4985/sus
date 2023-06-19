@@ -3,7 +3,7 @@ import { Randomizer } from '../random/Randomizer'
 
 export function comment(layer: number) {
 	if (layer <= cfg().format.commentFrequency) {
-		const comments = [
+		const comments = cfg().format.comments || ([
 			'sus',
 			'amogus',
 			'gay popbob sex dupe',
@@ -34,7 +34,7 @@ export function comment(layer: number) {
 			'epud xes bobpop yag',
 			'sllab amgis',
 			'!!!!!!!!gop amgis'
-		]
+		])
 	
 		const str = comments[Randomizer.INSTANCE.rand(0, (comments.length - 1))]
 		const s = [

@@ -25,6 +25,8 @@ export interface Config {
 		removeEmptyLines: boolean
 		shrink: boolean
 		commentFrequency: 0 | 1 | 2 | 3
+
+		comments: string[]
 	}
 
 	input: {

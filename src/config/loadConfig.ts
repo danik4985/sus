@@ -49,7 +49,9 @@ export function loadConfig(f: string): Config {
 	
 			removeEmptyLines: obj.format?.removeEmptyLines ?? false,
 			shrink: obj.format?.shrink ?? false,
-			commentFrequency: tlvl(obj.format?.commentFrequency, 2)
+			commentFrequency: tlvl(obj.format?.commentFrequency, 2),
+
+			comments: obj.format?.comments || false
 		},
 
 		input: {

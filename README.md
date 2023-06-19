@@ -94,6 +94,7 @@ format:
 input:
     esVersion: 2023
     seed: '...' # This is generated randomly each run if you do not set it manually
+    comments: [ 'uhh...' ] # By default the original comments I wrote back in 2020
 ```
 
 #### Transforms
@@ -135,6 +136,8 @@ input:
 **`esVersion`**`:number` - The ECMAscript version of your JS source code
 
 **`seed`**`:string` - Seed for the random number generator
+
+**`comments`**`:string[]` - Comments to randomly insert into the obfuscated code (Note that the default comments feature the `u+202E` character, you might want to add that to your comments as well just because funny)
 
 ### Contributing
 
