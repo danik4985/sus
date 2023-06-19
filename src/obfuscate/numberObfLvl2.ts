@@ -19,13 +19,13 @@ export function numberObfLvl2(num: number) {
 			return '0x0_' + p1.toString(16) + '+' + p2.toString(10)
 		}
 	} else {
-		const p1 = Randomizer.INSTANCE.rand(num, 0)
-		const p2 = num + p1
+		const p1 = Randomizer.INSTANCE.rand(num, 0) // (num = -50, p1 = -30)
+		const p2 = num - p1 // (p2 = -20)
 
 		if (Randomizer.INSTANCE.rand(0, 10) % 2) {
-			return p2.toString(10) + '-0x0_' + p1.toString(16)
+			return p1.toString(10) + '-0x0_' + Math.abs(p2).toString(16)
 		} else {
-			return '0x0_' + p2.toString(16) + '-' + p1.toString(10)
+			return '-0x0_' + Math.abs(p1).toString(16) + '+' + p2.toString(10)
 		}
 	}
 }

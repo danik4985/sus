@@ -30,6 +30,7 @@ import { HELP_TEXT, VERSION } from './program/constants'
 import { applyLines } from './obfuscate/applyLines'
 import { applyArt } from './obfuscate/applyArt'
 import { Randomizer } from './random/Randomizer'
+import { generateProxyFunction } from './obfuscate/generateProxyFunction'
 
 const program = new commander.Command()
 
@@ -102,11 +103,21 @@ updateRedo()
 addObfuscated('Array', rFnName)
 addObfuscated('RegExp', eFnName)
 
+const headerFncName1 = Randomizer.INSTANCE.randIName(64)
+const headerFncName2 = Randomizer.INSTANCE.randIName(64)
+
+addObfuscated(null, headerFncName1)
+addObfuscated(null, headerFncName2)
+
+const proxyFnc = generateProxyFunction(A_FNC_NAME(), headerFncName1, headerFncName2)
+
 const obf = traverse(ast.body)
 const mapped = REDONE_PAIRS.map(([og, n]) => `const ${n}=${og}`).join(';')
 
+//function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ }
+
 const result = `
-function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ };const ${B_FNC_NAME()}=Boolean;
+${proxyFnc};const ${B_FNC_NAME()}=Boolean;
 ${mapped};
 const ${rFnName} = Array;const ${eFnName}=RegExp;
 ${obf};
