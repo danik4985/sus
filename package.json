@@ -23,16 +23,11 @@
   "author": "danik",
   "license": "GPL v3.0",
   "dependencies": {
-    "@types/commander": "^2.12.2",
-    "@types/node": "^18.11.9",
-    "@types/randomstring": "^1.1.8",
-    "@types/seedrandom": "^3.0.2",
     "commander": "^9.4.1",
     "espree": "^9.4.1",
     "kolorist": "^1.6.0",
     "node-cache": "^5.1.2",
     "npm-api": "^1.0.1",
-    "randomstring": "^1.2.3",
     "seedrandom": "^3.0.5",
     "yaml": "^2.1.3"
   },
@@ -46,5 +41,10 @@
   },
   "bin": {
     "sus": "./bin/sus.js"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/node": "^20.3.1",
+    "@types/seedrandom": "^3.0.5"
   }
 }
