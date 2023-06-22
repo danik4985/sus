@@ -14,18 +14,18 @@ export function ifStatement(expr: any) {
 	// console.log(expr)
 
 	if (expr.consequent.type === 'BlockStatement') {
-		data += '{' + traverse(expr.consequent.body) + ';}'
+		data += '{' + comment(1) + traverse(expr.consequent.body) + ';}'
 	} else {
-		data += '{' + postElseExpr(expr.consequent) + ';}'
+		data += '{' + comment(1) + postElseExpr(expr.consequent) + ';}'
 	}
 
 	if (expr.alternate) {
 		data += ' else '
 
 		if (expr.alternate.type === 'BlockStatement') {
-			data += '{' + traverse(expr.alternate.body) + ';}'
+			data += '{' + comment(1) + traverse(expr.alternate.body) + ';}'
 		} else {
-			data += '{' + postElseExpr(expr.alternate) + ';}'
+			data += '{' + comment(1) + postElseExpr(expr.alternate) + ';}'
 		}
 	}
 

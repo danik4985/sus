@@ -14,18 +14,18 @@ function modIfStatement(expr: any) {
 	// console.log(expr)
 
 	if (expr.consequent.type === 'BlockStatement') {
-		data += '{' + traverse(expr.consequent.body) + ';}'
+		data += '{' + comment(2) + traverse(expr.consequent.body) + ';}'
 	} else {
-		data += '{return ' + postElseExpr(expr.consequent) + ';}'
+		data += '{return ' + comment(2) + postElseExpr(expr.consequent) + ';}'
 	}
 
 	if (expr.alternate) {
-		data += ' else '
+		data += ' else ' + comment(1)
 
 		if (expr.alternate.type === 'BlockStatement') {
-			data += '{' + traverse(expr.alternate.body) + ';}'
+			data += '{' + comment(2) + traverse(expr.alternate.body) + ';}'
 		} else {
-			data += '{return ' + postElseExpr(expr.alternate) + ';}'
+			data += '{return ' + comment(2) + postElseExpr(expr.alternate) + ';}'
 		}
 	}
 

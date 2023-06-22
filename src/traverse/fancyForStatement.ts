@@ -9,9 +9,7 @@ import { variableDeclaration } from './variableDeclaration'
 export function fancyForStatement(expr: any) {
 	const theKeyword = expr.type === 'ForInStatement' ? 'in' : 'of'
 
-	var data = 'for('
-
-	data += comment(2)
+	var data = 'for(' + comment(2)
 	
 	if (expr.left.type === 'VariableDeclaration') {
 		data += variableDeclaration(expr.left)
