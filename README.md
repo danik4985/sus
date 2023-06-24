@@ -10,12 +10,12 @@
 An epic amogus themed javascript obfuscator. Written in typescript. And now rewritten to be actually good!
 
 <p align="center">
-	<img src="https://img.shields.io/npm/v/sus-obfuscator?label=version">
-	<img src="https://img.shields.io/npm/l/sus-obfuscator?color=green">
-	<img src="https://img.shields.io/github/issues/danik4985/sus?color=orange">
-	<img src="https://img.shields.io/npm/dt/sus-obfuscator?color=lightgray">
-	<img src="https://img.shields.io/github/stars/danik4985/sus?color=pink">
-	<img src="https://img.shields.io/badge/amogus-sus-purple">
+	<a href="https://github.com/danik4985/sus"><img src="https://img.shields.io/npm/v/sus-obfuscator?label=version"></a>
+	<a href="https://github.com/danik4985/sus/blob/main/COPYING"><img src="https://img.shields.io/npm/l/sus-obfuscator?color=green"></a>
+	<a href="https://github.com/danik4985/sus/issues"><img src="https://img.shields.io/github/issues/danik4985/sus?color=orange"></a>
+	<a href="https://www.npmjs.com/package/sus-obfuscator"><img src="https://img.shields.io/npm/dt/sus-obfuscator?color=lightgray"></a>
+	<a href="https://github.com/danik4985/sus/stargazers"><img src="https://img.shields.io/github/stars/danik4985/sus?color=pink"></a>
+	<a href="https://amogus.eu/"><img src="https://img.shields.io/badge/amogus-sus-purple"></a>
 </p>
 
 ### Why use `sus`?
