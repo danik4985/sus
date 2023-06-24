@@ -1,3 +1,5 @@
+import { cfg } from '../config/cfg'
+
 export function numberObfLvl1(num: number) {
-	return '0x0_' + num.toString(16)
+	return (cfg().transforms.noES2021Syntax ? '0x0' : '0x0_') + num.toString(16)
 }

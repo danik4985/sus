@@ -83,6 +83,7 @@ transforms:
     ignore: []
 
     webMode: false
+    noES2021Syntax: false
 
 format:
     amogus:
@@ -127,6 +128,8 @@ input:
 **`commentFrequency`**`:0~3` - How frequent should random distractive comments be
 
 **`webMode`**`:boolean` - Set this to true if you are obfuscating for the web
+
+**`noES2021Syntax`**`:boolean` - Do **not** use syntax features new in ECMAScript 2021. Note that these are implemented in all modern browsers and runtimes, but break a **ton** of deobfuscators.
 
 #### Format
 

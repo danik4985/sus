@@ -9,6 +9,8 @@ export interface Config {
 
 		ignore: string[]
 		webMode: boolean
+
+		noES2021Syntax: boolean
 	}
 
 	format: {

@@ -33,7 +33,9 @@ export function loadConfig(f: string): Config {
 
 			ignore: arr(obj.transforms?.ignore, []),
 
-			webMode: obj.transforms?.webMode ?? false
+			webMode: obj.transforms?.webMode ?? false,
+
+			noES2021Syntax: obj.transforms?.noES2021Syntax ?? false
 		},
 	
 		format: {
