@@ -10,28 +10,34 @@ import { variableDeclaration } from './variableDeclaration'
 import { whileStatement } from './whileStatement'
 
 export function traverse(ast: any[], data = '') {
-	ast.forEach((i) => {
+	var shouldAddComma = false
+
+	ast.forEach((i, n) => {
 		if (i.type === 'FunctionDeclaration') {
 			data += drawFunction(i)
 		} else if (i.type === 'ExpressionStatement') {
-			data += expressionStatement(i) + ';\n'
+			data += expressionStatement(i)
+			shouldAddComma = ast[n + 1]?.type === 'ExpressionStatement'
 		} else if (i.type === 'VariableDeclaration') {
-			data += variableDeclaration(i) + ';\n'
+			data += variableDeclaration(i)
 		} else if (i.type === 'ReturnStatement') {
-			data += returnStatement(i) + ';\n'
+			data += returnStatement(i)
 		} else if (i.type === 'IfStatement') {
-			data += ifStatement(i) + ';\n'
+			data += ifStatement(i)
 		} else if (i.type === 'WhileStatement') {
-			data += whileStatement(i) + ';\n'
+			data += whileStatement(i)
 		} else if (i.type === 'DoWhileStatement') {
-			data += doWhileStatement(i) + ';\n'
+			data += doWhileStatement(i)
 		} else if (i.type === 'ForStatement') {
-			data += forStatement(i) + ';\n'
+			data += forStatement(i)
 		} else if (i.type === 'ForInStatement' || i.type === 'ForOfStatement') {
-			data += fancyForStatement(i) + ';\n'
+			data += fancyForStatement(i)
 		} else if (i.type === 'ClassDeclaration') {
-			data += drawClass(i) + ';\n'
+			data += drawClass(i)
 		}
+
+		data += shouldAddComma ? ',' : ';\n'
+		shouldAddComma = false
 	})
 
 	return data
