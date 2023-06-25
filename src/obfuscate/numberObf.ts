@@ -3,8 +3,8 @@ import { numberObfLvl1 } from './numberObfLvl1'
 import { numberObfLvl2 } from './numberObfLvl2'
 import { numberObfLvl3 } from './numberObfLvl3'
 
-export function numberObf(num: number) {
-	const l = cfg().transforms.stringObfLevel
+export function numberObf(num: number, lvl?: number) {
+	const l = lvl ?? cfg().transforms.numberObfLevel
 
 	if (l === 0) return num
 	if (l === 1) return numberObfLvl1(num)

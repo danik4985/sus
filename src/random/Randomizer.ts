@@ -13,6 +13,10 @@ export class Randomizer {
 		return Math.floor(this.seeded.double() * (max - min + 1) ) + min
 	}
 
+	public randBool(): boolean {
+		return this.seeded.int32() % 2 === 0
+	}
+
 	public randIName(len: number, chars = 'řඞŘ') {
 		const charset = chars.split('')
 		var result = ''

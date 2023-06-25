@@ -80,6 +80,8 @@ transforms:
     stringObfLevel: 3
     numberObfLevel: 3
 
+    extractStringsToArray: false
+
     ignore: []
 
     webMode: false
@@ -118,6 +120,8 @@ input:
 **`stringObfLevel`**`:0~3` - How heavily to obfuscate strings
 
 **`numberObfLevel`**`:0~3` - How heavily to obfuscate numbers
+
+**`extractStringsToArray`**`:boolean|"Random"` - Obfuscate strings by extracting them to an array
 
 **`ignore`**`:string[]` - Which identifiers to ignore when obfuscating names
 

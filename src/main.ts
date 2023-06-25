@@ -31,6 +31,7 @@ import { applyLines } from './obfuscate/applyLines'
 import { applyArt } from './obfuscate/applyArt'
 import { Randomizer } from './random/Randomizer'
 import { generateProxyFunction } from './obfuscate/generateProxyFunction'
+import { StringToArrayExtr } from './obfuscate/StringToArrayExtr'
 
 const program = new commander.Command()
 
@@ -88,6 +89,8 @@ new Randomizer(cfg().input.seed)
 console.log(kolorist.white('Obfuscating ' + kolorist.green(input) + ' with sus ' + kolorist.yellow(VERSION)))
 const t = Date.now()
 
+StringToArrayExtr.init()
+
 var aFnName = Randomizer.INSTANCE.randIName(64)
 var bFnName = Randomizer.INSTANCE.randIName(64)
 var rFnName = Randomizer.INSTANCE.randIName(64)
@@ -117,7 +120,7 @@ const mapped = REDONE_PAIRS.map(([og, n]) => `const ${n}=${og}`).join(';')
 //function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ }
 
 const result = `
-${proxyFnc};const ${B_FNC_NAME()}=Boolean;
+${proxyFnc};const ${B_FNC_NAME()}=Boolean;${StringToArrayExtr.generateHeader()}
 ${mapped};
 const ${rFnName} = Array;const ${eFnName}=RegExp;
 ${obf};
