@@ -1,0 +1,127 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "format": {
+            "properties": {
+                "amogus": {
+                    "properties": {
+                        "end": {
+                            "type": "boolean"
+                        },
+                        "start": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "commentFrequency": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "type": "number"
+                },
+                "comments": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "epicEndArt": {
+                    "type": "boolean"
+                },
+                "lineEnd": {
+                    "type": [
+                        "string",
+                        "boolean"
+                    ]
+                },
+                "lineStart": {
+                    "type": [
+                        "string",
+                        "boolean"
+                    ]
+                },
+                "removeEmptyLines": {
+                    "type": "boolean"
+                },
+                "shrink": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "input": {
+            "properties": {
+                "esVersion": {
+                    "type": "number"
+                },
+                "seed": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "transforms": {
+            "properties": {
+                "extractStringsToArray": {
+                    "enum": [
+                        "Random",
+                        false,
+                        true
+                    ]
+                },
+                "ignore": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "keyObfuscationLevel": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "type": "number"
+                },
+                "noES2021Syntax": {
+                    "type": "boolean"
+                },
+                "numberObfLevel": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "type": "number"
+                },
+                "obfuscateBooleans": {
+                    "type": "boolean"
+                },
+                "obfuscateNames": {
+                    "type": "boolean"
+                },
+                "stringObfLevel": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "type": "number"
+                },
+                "webMode": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}
+

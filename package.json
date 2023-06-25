@@ -1,11 +1,12 @@
 {
   "name": "sus-obfuscator",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "description": "An epic javascript amogus-themed obfuscator",
   "main": "out/main.js",
   "scripts": {
     "test": "tsc && node out/main.js -i test.js -o out.js -c config.yml",
-    "do-publish": "tsc && npm publish"
+    "do-publish": "tsc && npm publish",
+		"gen-schema": "tsc && npx typescript-json-schema -o config_schema.json ./tsconfig.json Config"
   },
   "keywords": [
     "javascript",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.3.1",
-    "@types/seedrandom": "^3.0.5"
+    "@types/seedrandom": "^3.0.5",
+    "typescript-json-schema": "^0.57.0"
   }
 }

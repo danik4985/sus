@@ -72,6 +72,9 @@ Arguments:
 The default configuration goes as follows:
 
 ```yml
+# Schema for version 2.5.0
+# yaml-language-server: $schema=https://pastebin.com/hwjWw7Ra
+
 transforms:
     obfuscateNames: true
     obfuscateBooleans: true

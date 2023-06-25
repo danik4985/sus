@@ -7,3 +7,4 @@ config.yml
 release
 out_test
 test.json
+secret
