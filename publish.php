@@ -54,7 +54,8 @@ if (str_starts_with($response, "Bad API request")) exit(2);
 echo "[Editing README.md]\n";
 
 $og_comment = "# This is a development version\n# yaml-language-server: \$schema=config_schema.json";
-$new_comment = "# Schema for version " . $version . "\n# yaml-language-server: \$schema=" . $response;
+$new_comment = "# Schema for version " . $version . "\n# yaml-language-server: \$schema=" . str_replace(
+	"https://pastebin.com/", "https://pastebin.com/raw/", $response);
 
 $readme = file_get_contents("README.md");
 $og_readme = $readme;
