@@ -84,6 +84,7 @@ transforms:
     numberObfLevel: 3
 
     extractStringsToArray: false
+		addFakeStringsToArray: true
 
     ignore: []
 
@@ -125,6 +126,8 @@ input:
 **`numberObfLevel`**`:0~3` - How heavily to obfuscate numbers
 
 **`extractStringsToArray`**`:boolean|"Random"` - Obfuscate strings by extracting them to an array
+
+**`addFakeStringsToArray`**`:boolean` - (If extractStringsToArray is enabled) add fake strings to the array
 
 **`ignore`**`:string[]` - Which identifiers to ignore when obfuscating names
 

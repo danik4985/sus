@@ -8,6 +8,7 @@ export interface Config {
 		numberObfLevel: 0 | 1 | 2 | 3
 
 		extractStringsToArray: boolean | 'Random'
+		addFakeStringsToArray: boolean
 
 		ignore: string[]
 		webMode: boolean

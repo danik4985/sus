@@ -25,12 +25,15 @@ export class StringToArrayExtr {
 		const at = this.arr.findIndex(i => i === str)
 		if (at >= 0) return this.createCallForIndex(at)
 
-		const randoms = Randomizer.INSTANCE.rand(0, (cfg().transforms.stringObfLevel - 1) * 4)
+		if (cfg().transforms.addFakeStringsToArray) {
+			const randoms = Randomizer.INSTANCE.rand(0, (cfg().transforms.stringObfLevel - 1) * 4)
 
-		for (let i = 0; i < randoms; i++) this.arr.push(Randomizer.INSTANCE.randIName(
-			Randomizer.INSTANCE.rand(1, 25),
-			'qwertzuiopasdfghjklyxcvbnmQWERTZUIOASDHJKLYXCVBNM7894561230.-_'
-		))
+			for (let i = 0; i < randoms; i++) this.arr.push(Randomizer.INSTANCE.randIName(
+				Randomizer.INSTANCE.rand(1, 25),
+				'qwertzuiopasdfghjklyxcvbnmQWERTZUIOASDHJKLYXCVBNM7894561230.-_'
+			))
+		}
+		
 		this.arr.push(str)
 
 		return this.createCallForIndex(this.arr.length - 1)

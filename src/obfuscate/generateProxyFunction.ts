@@ -21,8 +21,8 @@ export function generateProxyFunction(name: string, v1: string, v2: string) {
 	const ${v2}${comment(3)}=${comment(2)}!((${v1}[${
 		selectedIndex}]-${comment(2)}${randomConstant}) === ${result});
 	function ${comment(3)}${name}(řඞŘඞ, řඞŘඞř)${comment(2)} {
-		if (${v2}) return${comment(1)}(String(Object));
-		else return(${comment(2)}řඞŘඞř + řඞŘඞ);
+		if (${v2}) {return${comment(1)}(String(Object));}
+		else {return(${comment(2)}řඞŘඞř + řඞŘඞ);}
 	};
 	`
 }
