@@ -72,8 +72,8 @@ Arguments:
 The default configuration goes as follows:
 
 ```yml
-# This is a development version
-# yaml-language-server: $schema=config_schema.json
+# Schema for version 2.5.1
+# yaml-language-server: $schema=https://pastebin.com/raw/kbsbQT7z
 
 transforms:
     obfuscateNames: true

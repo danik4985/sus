@@ -66,6 +66,9 @@
         },
         "transforms": {
             "properties": {
+                "addFakeStringsToArray": {
+                    "type": "boolean"
+                },
                 "extractStringsToArray": {
                     "enum": [
                         "Random",
