@@ -22,8 +22,6 @@ export function parseAndPushOV(data: string): boolean {
 		}
 	})
 
-	console.log(object.transforms)
-
 	__cfg.push(object)
 
 	return true

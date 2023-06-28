@@ -9,6 +9,7 @@ import { binaryExpression } from './binaryExpression'
 import { callExpression } from './callExpression'
 import { chainExpression } from './chainExpression'
 import { conditionalExpression } from './conditionalExpression'
+import { importExpression } from './importExpression'
 import { leftExpression } from './leftExpression'
 import { literalExpression } from './literalExpression'
 import { memberExpression } from './memberExpression'
@@ -57,5 +58,7 @@ export function rightExpression(expr: any) {
 		return '(' + assignmentExpression(expr) + ')'
 	} else if (expr.type === 'ChainExpression') {
 		return chainExpression(expr)
+	} else if (expr.type === 'ImportExpression') {
+		return importExpression(expr)
 	} else warn(`Unknown expression type in rightExpression(e) : ${expr.type}`)
 }
