@@ -6,6 +6,7 @@ export interface Config {
 		keyObfuscationLevel: 0 | 1 | 2 | 3
 		stringObfLevel: 0 | 1 | 2 | 3
 		numberObfLevel: 0 | 1 | 2 | 3
+		stringArrObfLevel: 0 | 1 | 2 | 3
 
 		extractStringsToArray: boolean | 'Random'
 		addFakeStringsToArray: boolean

@@ -82,8 +82,9 @@ transforms:
     keyObfuscationLevel: 2
     stringObfLevel: 3
     numberObfLevel: 3
+    stringArrObfLevel: 2
 
-    extractStringsToArray: false
+    extractStringsToArray: Random
     addFakeStringsToArray: true
 
     ignore: []
@@ -124,6 +125,8 @@ input:
 **`stringObfLevel`**`:0~3` - How heavily to obfuscate strings
 
 **`numberObfLevel`**`:0~3` - How heavily to obfuscate numbers
+
+**`stringArrObfLevel`**`:0~3` - How heavily to obfuscate the strings extracted to an array
 
 **`extractStringsToArray`**`:boolean|"Random"` - Obfuscate strings by extracting them to an array
 

@@ -15,7 +15,7 @@ export class StringToArrayExtr {
 		this.arr = []
 		this.fncName = Randomizer.INSTANCE.randIName(64)
 		this.arrayName = Randomizer.INSTANCE.randIName(64)
-		this.indexMod = (cfg().transforms.stringObfLevel > 1) ? Randomizer.INSTANCE.rand(-256, 256) : 0
+		this.indexMod = (cfg().transforms.stringArrObfLevel > 1) ? Randomizer.INSTANCE.rand(-256, 256) : 0
 
 		addObfuscated(null, this.fncName)
 		addObfuscated(null, this.arrayName)
@@ -26,7 +26,7 @@ export class StringToArrayExtr {
 		if (at >= 0) return this.createCallForIndex(at)
 
 		if (cfg().transforms.addFakeStringsToArray) {
-			const randoms = Randomizer.INSTANCE.rand(0, (cfg().transforms.stringObfLevel - 1) * 4)
+			const randoms = Randomizer.INSTANCE.rand(0, (cfg().transforms.stringArrObfLevel - 1) * 4)
 
 			for (let i = 0; i < randoms; i++) this.arr.push(Randomizer.INSTANCE.randIName(
 				Randomizer.INSTANCE.rand(1, 25),
@@ -40,7 +40,7 @@ export class StringToArrayExtr {
 	}
 
 	public static createCallForIndex(index: number) {
-		const l = cfg().transforms.stringObfLevel
+		const l = cfg().transforms.stringArrObfLevel
 		const nl = Math.max(0, cfg().transforms.numberObfLevel - 1)
 		const v = index - this.indexMod
 
@@ -54,7 +54,7 @@ export class StringToArrayExtr {
 	}
 
 	public static generateHeader() {
-		const l = cfg().transforms.stringObfLevel
+		const l = cfg().transforms.stringArrObfLevel
 
 		if (l === 0) return (this.arr.length > 0) ? this.generateLvl1Header() : ''
 		if (l === 1) return this.generateLvl1Header()

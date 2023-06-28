@@ -30,8 +30,9 @@ export function loadConfig(f: string): Config {
 			keyObfuscationLevel: tlvl(obj.transforms?.keyObfuscationLevel, 2),
 			stringObfLevel: tlvl(obj.transforms?.stringObfLevel, 3),
 			numberObfLevel: tlvl(obj.transforms?.numberObfLevel, 3),
+			stringArrObfLevel: tlvl(obj.transforms?.stringArrObfLevel, 2),
 
-			extractStringsToArray: obj.transforms?.extractStringsToArray ?? false,
+			extractStringsToArray: obj.transforms?.extractStringsToArray ?? 'Random',
 			addFakeStringsToArray: obj.transforms?.addFakeStringsToArray ?? true,
 
 			ignore: arr(obj.transforms?.ignore, []),
