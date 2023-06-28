@@ -1,8 +1,10 @@
 import { cfg } from '../config/cfg'
+import { parseAndPushOV, shiftOV } from '../config/configOverride'
 import { warn } from '../log/warn'
 import { comment } from '../obfuscate/comment'
 import { obfuscateName } from '../obfuscate/obfuscateName'
 import { stringObfLvl1 } from '../obfuscate/stringObfLvl1'
+import { joinComments } from '../util/joinComments'
 import { arrayPattern } from './arrayPattern'
 import { assignmentExpression } from './assignmentExpression'
 import { objectPattern } from './objectPattern'
@@ -52,9 +54,13 @@ export function methodDefinition(expr: any) {
 		} else warn(`Unknown expression type in methodDefinition(e) => e.value.params[${n}] : ${i.type}`)
 	})
 
+	const hasConfig = parseAndPushOV(joinComments(expr))
+
 	data += '){'
 	data += traverse(expr.value.body.body)
 	data += '}'
+
+	if (hasConfig) shiftOV()
 
 	return data
 }

@@ -1,10 +1,10 @@
 import * as fs from 'fs'
 import * as YAML from 'yaml'
-import { createRandomSeed } from '../random/createRandomSeed'
 
+import { createRandomSeed } from '../random/createRandomSeed'
 import { Config } from './Config'
 
-export var __cfg: Config
+export const __cfg: Config[] = []
 
 function tlvl(o: any, d: 0 | 1 | 2 | 3): 0 | 1 | 2 | 3 {
 	if (o === 0) return 0
@@ -65,7 +65,7 @@ export function loadConfig(f: string): Config {
 		}
 	}
 
-	__cfg = data
+	__cfg.push(data)
 
 	return data
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tsc && node out/main.js -i test.js -o out.js -c config.yml",
     "do-publish": "tsc && npm publish",
-		"gen-schema": "tsc && npx typescript-json-schema -o config_schema.json ./tsconfig.json Config"
+    "gen-schema": "tsc && npx typescript-json-schema -o config_schema.json ./tsconfig.json Config"
   },
   "keywords": [
     "javascript",
@@ -26,10 +26,12 @@
   "dependencies": {
     "commander": "^9.4.1",
     "espree": "^9.4.1",
+    "estree-util-attach-comments": "^2.1.1",
     "kolorist": "^1.6.0",
     "node-cache": "^5.1.2",
     "npm-api": "^1.0.1",
     "seedrandom": "^3.0.5",
+    "toml": "^3.0.0",
     "yaml": "^2.1.3"
   },
   "repository": {

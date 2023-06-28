@@ -4,7 +4,8 @@
 		"target": "ES2021",
 		"skipLibCheck": true,
 		"outDir": "out",
-		"removeComments": true
+		"removeComments": true,
+		"moduleResolution": "Node16"
 	},
 	"include": ["src/**/*.ts"]
 }

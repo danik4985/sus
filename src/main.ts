@@ -33,120 +33,134 @@ import { Randomizer } from './random/Randomizer'
 import { generateProxyFunction } from './obfuscate/generateProxyFunction'
 import { StringToArrayExtr } from './obfuscate/StringToArrayExtr'
 
-const program = new commander.Command()
-
-program
-	.option('-i, --input <file>', 'Input file')
-	.option('-o, --output <file>', 'Output file')
-	.option('-c, --config <file>', 'Config file')
-	.option('-s, --logseed', 'Print out the seed at the end')
-	.option('-n, --noupdate', 'Don\'t check for updates')
-	.option('-h, --help', 'Get help')
-	.option('-v, --version', 'Get the version')
-
-program.helpOption(false)
-
-const opts = program.parse().opts()
-
-const { input, output, config, help, version, logseed, noupdate } = opts
-
-if (help) {
-	console.log(HELP_TEXT)
-	process.exit(0)
-}
-
-if (version) {
-	console.log(VERSION)
-	process.exit(0)
-}
-
-if (!input) {
-	error('You must specify an input', true)
-	process.exit(1)
-}
-
-if (!output) {
-	error('You must specify an output', true)
-	process.exit(1)
-}
-
-if (!config) {
-	error('You must specify a config file', true)
-	process.exit(1)
-}
-
-const vcheckPromise = noupdate ? null : checkVersion()
-
-export const CONFIG_PATH = config
-
-const string = String(fs.readFileSync(input))
-const ast = espree.parse(string, { ecmaVersion: cfg().input.esVersion })
-
-new Randomizer(cfg().input.seed)
-
-// console.log(util.inspect(ast, false, Infinity, true))
-
-console.log(kolorist.white('Obfuscating ' + kolorist.green(input) + ' with sus ' + kolorist.yellow(VERSION)))
-const t = Date.now()
-
-StringToArrayExtr.init()
-
-var aFnName = Randomizer.INSTANCE.randIName(64)
-var bFnName = Randomizer.INSTANCE.randIName(64)
-var rFnName = Randomizer.INSTANCE.randIName(64)
-var eFnName = Randomizer.INSTANCE.randIName(64)
+var aFnName: string
+var bFnName: string
+var rFnName: string
+var eFnName: string
 
 export const A_FNC_NAME = () => aFnName
 export const B_FNC_NAME = () => bFnName
 export const R_FNC_NAME = () => rFnName
 export const E_FNC_NAME = () => eFnName
 
-updateRedo()
+export var CONFIG_PATH: string
 
-addObfuscated('Array', rFnName)
-addObfuscated('RegExp', eFnName)
+async function main() {
+	const { attachComments } = await import('estree-util-attach-comments')
 
-const headerFncName1 = Randomizer.INSTANCE.randIName(64)
-const headerFncName2 = Randomizer.INSTANCE.randIName(64)
+	const program = new commander.Command()
 
-addObfuscated(null, headerFncName1)
-addObfuscated(null, headerFncName2)
+	program
+		.option('-i, --input <file>', 'Input file')
+		.option('-o, --output <file>', 'Output file')
+		.option('-c, --config <file>', 'Config file')
+		.option('-s, --logseed', 'Print out the seed at the end')
+		.option('-n, --noupdate', 'Don\'t check for updates')
+		.option('-h, --help', 'Get help')
+		.option('-v, --version', 'Get the version')
 
-const proxyFnc = generateProxyFunction(A_FNC_NAME(), headerFncName1, headerFncName2)
+	program.helpOption(false)
 
-const obf = traverse(ast.body)
-const mapped = REDONE_PAIRS.map(([og, n]) => `const ${n}=${og}`).join(';')
+	const opts = program.parse().opts()
 
-//function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ }
+	const { input, output, config, help, version, logseed, noupdate } = opts
 
-const result = `
-${proxyFnc};const ${B_FNC_NAME()}=Boolean;${StringToArrayExtr.generateHeader()}
-${mapped};
-const ${rFnName} = Array;const ${eFnName}=RegExp;
-${obf};
-`
+	if (help) {
+		console.log(HELP_TEXT)
+		process.exit(0)
+	}
 
-var finalResult = result
+	if (version) {
+		console.log(VERSION)
+		process.exit(0)
+	}
 
-if (cfg().format.removeEmptyLines)
-	while (finalResult.includes('\n\n')) finalResult = finalResult.replaceAll('\n\n', '\n')
-if (cfg().format.shrink) finalResult = finalResult.replaceAll('\n', ';')
+	if (!input) {
+		error('You must specify an input', true)
+		process.exit(1)
+	}
 
-finalResult = applyLines(finalResult)
-finalResult = applyArt(finalResult)
+	if (!output) {
+		error('You must specify an output', true)
+		process.exit(1)
+	}
 
-console.log(kolorist.white('Done in ' + kolorist.magenta((Date.now() - t) + ' ms')))
+	if (!config) {
+		error('You must specify a config file', true)
+		process.exit(1)
+	}
 
-if (logseed) {
-	console.log('\tObfuscation seed is ' + kolorist.green(cfg().input.seed))
-}
+	const vcheckPromise = noupdate ? null : checkVersion()
 
-fs.writeFileSync(output, finalResult)
+	CONFIG_PATH = config
 
-;(async () => {
+	const string = String(fs.readFileSync(input))
+	const ast = espree.parse(string, { ecmaVersion: cfg().input.esVersion, comment: true })
+
+	new Randomizer(cfg().input.seed)
+
+	attachComments(ast.body, ast.comments)
+
+	// console.log(require('util').inspect(ast, false, Infinity, true))
+
+	console.log(kolorist.white('Obfuscating ' + kolorist.green(input) + ' with sus ' + kolorist.yellow(VERSION)))
+	const t = Date.now()
+
+	StringToArrayExtr.init()
+
+	aFnName = Randomizer.INSTANCE.randIName(64)
+	bFnName = Randomizer.INSTANCE.randIName(64)
+	rFnName = Randomizer.INSTANCE.randIName(64)
+	eFnName = Randomizer.INSTANCE.randIName(64)
+
+	updateRedo()
+
+	addObfuscated('Array', rFnName)
+	addObfuscated('RegExp', eFnName)
+
+	const headerFncName1 = Randomizer.INSTANCE.randIName(64)
+	const headerFncName2 = Randomizer.INSTANCE.randIName(64)
+
+	addObfuscated(null, headerFncName1)
+	addObfuscated(null, headerFncName2)
+
+	const proxyFnc = generateProxyFunction(A_FNC_NAME(), headerFncName1, headerFncName2)
+
+	const obf = traverse(ast.body)
+	const mapped = REDONE_PAIRS.map(([og, n]) => `const ${n}=${og}`).join(';')
+
+	//function /*řඞŘ*/${A_FNC_NAME()}(řඞŘඞ, řඞŘඞř){return řඞŘඞř + řඞŘඞ }
+
+	const result = `
+	${proxyFnc};const ${B_FNC_NAME()}=Boolean;${StringToArrayExtr.generateHeader()}
+	${mapped};
+	const ${rFnName} = Array;const ${eFnName}=RegExp;
+	${obf};
+	`
+
+	var finalResult = result
+
+	if (cfg().format.removeEmptyLines)
+		while (finalResult.includes('\n\n')) finalResult = finalResult.replaceAll('\n\n', '\n')
+	if (cfg().format.shrink) finalResult = finalResult.replaceAll('\n', ';')
+
+	finalResult = applyLines(finalResult)
+	finalResult = applyArt(finalResult)
+
+	console.log(kolorist.white('Done in ' + kolorist.magenta((Date.now() - t) + ' ms')))
+
+	if (logseed) {
+		console.log('\tObfuscation seed is ' + kolorist.green(cfg().input.seed))
+	}
+
+	fs.writeFileSync(output, finalResult)
+
 	if (noupdate) return
-
 	var { currentVersion, latestVersion } = await vcheckPromise
 	currentVersion = currentVersion.slice(1)
 	if (currentVersion !== latestVersion) printVersionInfo([ currentVersion, latestVersion ])
+}
+
+(async () => {
+	await main()
 })()

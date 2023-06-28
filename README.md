@@ -72,8 +72,8 @@ Arguments:
 The default configuration goes as follows:
 
 ```yml
-# Schema for version 2.5.1
-# yaml-language-server: $schema=https://pastebin.com/raw/kbsbQT7z
+# This is a development version
+# yaml-language-server: $schema=config_schema.json
 
 transforms:
     obfuscateNames: true
@@ -84,7 +84,7 @@ transforms:
     numberObfLevel: 3
 
     extractStringsToArray: false
-		addFakeStringsToArray: true
+    addFakeStringsToArray: true
 
     ignore: []
 
