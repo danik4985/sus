@@ -32,6 +32,7 @@ import { applyArt } from './obfuscate/applyArt'
 import { Randomizer } from './random/Randomizer'
 import { generateProxyFunction } from './obfuscate/generateProxyFunction'
 import { StringToArrayExtr } from './obfuscate/StringToArrayExtr'
+import { parseAndCatchErrors } from './util/parseAndCatchErrors'
 
 var aFnName: string
 var bFnName: string
@@ -95,7 +96,9 @@ async function main() {
 	CONFIG_PATH = config
 
 	const string = String(fs.readFileSync(input))
-	const ast = espree.parse(string, { ecmaVersion: cfg().input.esVersion, comment: true })
+	const ast = parseAndCatchErrors(string)
+
+	if (!ast) return
 
 	new Randomizer(cfg().input.seed)
 
