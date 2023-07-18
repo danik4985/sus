@@ -1,3 +1,7 @@
+import { cfg } from '../config/cfg'
+import { warn } from '../log/warn'
+import { breakStatement } from './breakStatement'
+import { continueStatement } from './continueStatement'
 import { doWhileStatement } from './doWhileStatement'
 import { drawClass } from './drawClass'
 import { drawFunction } from './drawFunction'
@@ -5,11 +9,15 @@ import { expressionStatement } from './expressionStatement'
 import { fancyForStatement } from './fancyForStatement'
 import { forStatement } from './forStatement'
 import { ifStatement } from './ifStatement'
+import { labeledStatement } from './labeledStatement'
+import { obfuscateFlow } from './obfuscateFlow'
 import { returnStatement } from './returnStatement'
+import { switchStatement } from './switchStatement'
 import { variableDeclaration } from './variableDeclaration'
 import { whileStatement } from './whileStatement'
 
 export function traverse(ast: any[], data = '') {
+	if (cfg().transforms.obfuscateFlow) return obfuscateFlow(ast)
 	var shouldAddComma = false
 
 	ast.forEach((i, n) => {
@@ -34,7 +42,15 @@ export function traverse(ast: any[], data = '') {
 			data += fancyForStatement(i)
 		} else if (i.type === 'ClassDeclaration') {
 			data += drawClass(i)
-		}
+		} else if (i.type === 'SwitchStatement') {
+			data += switchStatement(i)
+		} else if (i.type === 'BreakStatement') {
+			data += breakStatement(i)
+		} else if (i.type === 'ContinueStatement') {
+			data += continueStatement(i)
+		} else if (i.type === 'LabeledStatement') {
+			data += labeledStatement(i)
+		} else warn(`Unknown expression type in traverse(ast) => ast[${n}] : ${i.type}`)
 
 		data += shouldAddComma ? ',' : ';\n'
 		shouldAddComma = false

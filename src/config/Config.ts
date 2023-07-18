@@ -15,6 +15,7 @@ export interface Config {
 		webMode: boolean
 
 		noES2021Syntax: boolean
+		obfuscateFlow: boolean
 	}
 
 	format: {

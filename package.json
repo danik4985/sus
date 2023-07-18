@@ -5,8 +5,9 @@
   "main": "out/main.js",
   "scripts": {
     "test": "tsc && node out/main.js -i test.js -o out.js -c config.yml",
-    "do-publish": "tsc && npm publish",
-    "gen-schema": "tsc && npx typescript-json-schema -o config_schema.json ./tsconfig.json Config"
+    "do-publish": "tsc && pnpm publish",
+    "gen-schema": "tsc && npx typescript-json-schema -o config_schema.json ./tsconfig.json Config",
+		"preinstall": "npx only-allow pnpm"
   },
   "keywords": [
     "javascript",
