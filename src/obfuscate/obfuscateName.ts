@@ -83,8 +83,7 @@ const REDO = [
 	'JSON',
 	'Math',
 	'Date',
-	'console',
-	'Buffer'
+	'console'
 ]
 
 export function updateRedo() {
@@ -95,6 +94,7 @@ export function updateRedo() {
 		REDO.push('fetch')
 	} else {
 		REDO.push('require')
+		REDO.push('Buffer')
 	}
 }
 

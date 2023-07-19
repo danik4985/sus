@@ -18,7 +18,6 @@
 
 import * as commander from 'commander'
 import * as fs from 'fs'
-import * as espree from 'espree'
 import * as kolorist from 'kolorist'
 
 import { cfg } from './config/cfg'

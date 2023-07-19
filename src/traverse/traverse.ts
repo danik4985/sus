@@ -13,6 +13,7 @@ import { labeledStatement } from './labeledStatement'
 import { obfuscateFlow } from './obfuscateFlow'
 import { returnStatement } from './returnStatement'
 import { switchStatement } from './switchStatement'
+import { tryStatement } from './tryStatement'
 import { variableDeclaration } from './variableDeclaration'
 import { whileStatement } from './whileStatement'
 
@@ -50,6 +51,8 @@ export function traverse(ast: any[], data = '', of?: boolean) {
 			data += continueStatement(i)
 		} else if (i.type === 'LabeledStatement') {
 			data += labeledStatement(i)
+		} else if (i.type === 'TryStatement') {
+			data += tryStatement(i)
 		} else warn(`Unknown expression type in traverse(ast) => ast[${n}] : ${i.type}`)
 
 		data += shouldAddComma ? ',' : ';\n'

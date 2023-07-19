@@ -16,6 +16,6 @@ export function literalExpression({ value, regex }: any) {
 	} else if (value === null) {
 		return 'null' + comment(2)
 	} else if (regex !== null) {
-		return `new ${E_FNC_NAME()}(${stringObf(regex.pattern)}, ${JSON.stringify(regex.flags)})`
+		return `new ${E_FNC_NAME()}(${stringObf(regex.pattern)}, ${stringObf(regex.flags)})`
 	}
 }
