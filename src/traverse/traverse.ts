@@ -16,8 +16,8 @@ import { switchStatement } from './switchStatement'
 import { variableDeclaration } from './variableDeclaration'
 import { whileStatement } from './whileStatement'
 
-export function traverse(ast: any[], data = '') {
-	if (cfg().transforms.obfuscateFlow) return obfuscateFlow(ast)
+export function traverse(ast: any[], data = '', of?: boolean) {
+	if (of ?? cfg().transforms.obfuscateFlow) return obfuscateFlow(ast)
 	var shouldAddComma = false
 
 	ast.forEach((i, n) => {

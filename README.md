@@ -84,6 +84,8 @@ transforms:
     numberObfLevel: 3
     stringArrObfLevel: 2
 
+    checkNumbers: true
+
     extractStringsToArray: Random
     addFakeStringsToArray: true
 
@@ -127,6 +129,8 @@ input:
 **`numberObfLevel`**`:0~3` - How heavily to obfuscate numbers
 
 **`stringArrObfLevel`**`:0~3` - How heavily to obfuscate the strings extracted to an array
+
+**`checkNumbers`**`:boolean` - Verify if number obfuscation didn't malform the number (as higher levels of obfuscation can cause problems with big numbers) using `eval` and use lower obfuscation level for that number if it did
 
 **`extractStringsToArray`**`:boolean|"Random"` - Obfuscate strings by extracting them to an array
 

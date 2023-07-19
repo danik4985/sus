@@ -13,6 +13,10 @@ export class Randomizer {
 		return Math.floor(this.seeded.double() * (max - min + 1) ) + min
 	}
 
+	public randUnder1() {
+		return this.seeded.double()
+	}
+
 	public randBool(): boolean {
 		return this.seeded.int32() % 2 === 0
 	}

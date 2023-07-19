@@ -32,6 +32,8 @@ export function loadConfig(f: string): Config {
 			numberObfLevel: tlvl(obj.transforms?.numberObfLevel, 3),
 			stringArrObfLevel: tlvl(obj.transforms?.stringArrObfLevel, 2),
 
+			checkNumbers: true,
+
 			extractStringsToArray: obj.transforms?.extractStringsToArray ?? 'Random',
 			addFakeStringsToArray: obj.transforms?.addFakeStringsToArray ?? true,
 

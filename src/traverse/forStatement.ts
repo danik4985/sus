@@ -17,14 +17,14 @@ export function forStatement(expr: any) {
 	data += '(function(){'
 
 	data += comment(2)
-	data += forConditionSection(expr.init) + ';'
+	if (expr.init) data += forConditionSection(expr.init) + ';'
 	data += comment(2) + 'while('
-	data += forConditionSection(expr.test)
+	data += expr.test ? forConditionSection(expr.test) : 'true'
 	data += comment(1) + ')'
 
 	if (expr.body.type === 'BlockStatement') {
 		data += '{' + traverse(expr.body.body) + ';\n'
-		data += forConditionSection(expr.update) + '}'
+		if (expr.update) data += forConditionSection(expr.update) + '}'
 	} else {
 		data += '{' + postElseExpr(expr) + ';\n' + forConditionSection(expr.update) + '}'
 	}

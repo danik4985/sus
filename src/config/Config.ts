@@ -8,6 +8,8 @@ export interface Config {
 		numberObfLevel: 0 | 1 | 2 | 3
 		stringArrObfLevel: 0 | 1 | 2 | 3
 
+		checkNumbers: boolean
+
 		extractStringsToArray: boolean | 'Random'
 		addFakeStringsToArray: boolean
 
